@@ -1,9 +1,12 @@
 
 import App from './components/App';
+import { startUp } from './Facade'
 
 var app = new App({
   target: document.body,
 });
+
+startUp()
 
 export default app;
 
