@@ -77,3 +77,26 @@ app.get('/api/game/:gameId/inventory', (req: Request, res: Response) => {
   console.log({ gameId: req.params.gameId })
   res.json({ inventory })
 })
+
+app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response) => {
+  const roomId = req.params.roomId
+  const room = rooms[parseInt(roomId) - 1]
+  if (room.chest !== undefined) {
+    inventory.push({ ...room.chest.item })
+    room.chest.item.quantity = 0
+  }
+  res.json({ inventory })
+})
+
+app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response) => {
+  const roomId = req.params.roomId
+  const room = rooms[parseInt(roomId) - 1]
+  if (room.workbench !== undefined) {
+    const inputItem = inventory.find(item => item.name === room.workbench?.input.name)
+    if (inputItem !== undefined && room.workbench.input.quantity <= inputItem?.quantity) {
+      inputItem.quantity -= room.workbench.input.quantity
+      inventory.push({ ...room.workbench.output })
+    }
+  }
+  res.json({ inventory })
+})

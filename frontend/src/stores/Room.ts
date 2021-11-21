@@ -1,9 +1,15 @@
-import { writable } from "svelte/store";
+import { get, writable } from 'svelte/store'
+import type { Room } from 'src/types'
 
-import type { Room } from "src/types";
-
-const room : Room = {
-    doors: {},
+const room: Room = {
+  id: '',
+  doors: {}
 }
 
-export default writable<Room>(room)
+export function getRoomId (): string {
+  return get(store).id
+}
+
+const store = writable<Room>(room)
+
+export default store
