@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import * as bodyParser from 'body-parser'
-import { Item, Room } from './types'
+import { Room } from '../types'
+import { Inventory } from './Inventory'
 
 const app = express()
 const port = 3000
@@ -78,44 +79,32 @@ app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
   res.json(rooms[parseInt(roomId) - 1])
 })
 
-let inventory: Item[] = []
+// Inventory routes
+
+const inventory = new Inventory()
 
 app.get('/api/game/:gameId/inventory', (req: Request, res: Response) => {
   console.log({ gameId: req.params.gameId })
-  res.json({ inventory })
+  res.json({ inventory: inventory.getItems() })
 })
 
 app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response) => {
   const roomId = req.params.roomId
   const room = rooms[parseInt(roomId) - 1]
   if (room.chest !== undefined && room.chest.item.quantity > 0) {
-    const inventoryItem = inventory.find(item => item.name === room.chest?.item.name)
-    if (inventoryItem !== undefined) {
-      inventoryItem.quantity += 1
-    } else {
-      inventory.push({ ...room.chest.item, quantity: 1 })
-    }
+    inventory.addItem({ ...room.chest.item, quantity: 1 })
     room.chest.item.quantity -= 1
   }
-  res.json({ inventory })
+  res.json({ inventory: inventory.getItems() })
 })
 
 app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response) => {
   const roomId = req.params.roomId
   const room = rooms[parseInt(roomId) - 1]
   if (room.workbench !== undefined) {
-    const inputItem = inventory.find(item => item.name === room.workbench?.input.name)
-    if (inputItem !== undefined && room.workbench.input.quantity <= inputItem?.quantity) {
-      inputItem.quantity -= room.workbench.input.quantity
-      const outputInventoryItem = inventory.find(item => item.name === room.workbench?.output.name)
-      if (outputInventoryItem !== undefined) {
-        outputInventoryItem.quantity += room.workbench.output.quantity
-      } else {
-        inventory.push({ ...room.workbench.output })
-      }
-
-      inventory = inventory.filter(item => item.quantity > 0)
+    if (inventory.removeItem(room.workbench.input)) {
+      inventory.addItem(room.workbench.output)
     }
   }
-  res.json({ inventory })
+  res.json({ inventory: inventory.getItems() })
 })
