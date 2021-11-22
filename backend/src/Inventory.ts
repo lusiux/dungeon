@@ -28,6 +28,24 @@ export class Inventory {
     return true
   }
 
+  public removeItems (items: Item[]): boolean {
+    for (const item of items) {
+      const inventoryItem = this.getItem(item.name)
+      if (inventoryItem === undefined) {
+        return false
+      }
+
+      if (inventoryItem.quantity < item.quantity) {
+        return false
+      }
+    }
+
+    for (const item of items) {
+      this.removeItem(item)
+    }
+    return true
+  }
+
   public getItems (): Item[] {
     return this.items
   }

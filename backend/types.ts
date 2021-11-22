@@ -11,7 +11,7 @@ export interface Doors {
 }
 
 export interface Workbench {
-  input: Item
+  inputs: Item[]
   output: Item
 }
 

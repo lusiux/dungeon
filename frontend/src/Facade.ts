@@ -3,8 +3,9 @@ import roomStore, { getRoomId } from './stores/Room'
 import inventoryStore from './stores/Inventory'
 import gameStore, { getGameId } from './stores/Game'
 
-async function updateRoom (roomId: string = '1'): Promise<void> {
+async function updateRoom (): Promise<void> {
   const gameId = getGameId()
+  const roomId = getRoomId()
   const room: Room = await (await fetch(`/api/game/${gameId}/room/${roomId}`)).json()
   roomStore.set(room)
 }
@@ -19,7 +20,7 @@ export async function pickChest (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
   const { inventory } = await (await fetch(`/api/game/${gameId}/room/${roomId}/pickChest`)).json()
-  await updateRoom(roomId)
+  await updateRoom()
   inventoryStore.set(inventory)
 }
 
@@ -44,4 +45,6 @@ export async function newGame (): Promise<void> {
 }
 
 export async function startUp (): Promise<void> {
+  await updateRoom()
+  await updateInventory()
 }

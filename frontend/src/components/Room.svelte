@@ -1,32 +1,31 @@
 <script>
-    import Chest from "./Chest.svelte";
-    import Doors from "./Doors.svelte";
-    import Socket from "./Socket.svelte";
-    import Workbench from "./Workbench.svelte";
-    import roomStore from "../stores/Room";
+  import Chest from "./Chest.svelte";
+  import Doors from "./Doors.svelte";
+  import Socket from "./Socket.svelte";
+  import Workbench from "./Workbench.svelte";
+  import roomStore from "../stores/Room";
 </script>
 
 <h1>Room</h1>
 <h5>id: {$roomStore.id}</h5>
 {#if $roomStore.description}
-    <p>{$roomStore.description}</p>
+  <p>{$roomStore.description}</p>
 {/if}
 <div>
-    <Doors doors={$roomStore.doors}/>
-    {#if $roomStore.chest}
-    <Chest chest={$roomStore.chest}/>
-    {/if}
-    {#if $roomStore.workbench}
-    <Workbench workbench={$roomStore.workbench}/>
-    {/if}
-    {#if $roomStore.socket}
-        <Socket socket={$roomStore.socket}/>
-    {/if}
+  <Doors doors={$roomStore.doors} />
+  {#if $roomStore.chest}
+    <Chest chest={$roomStore.chest} />
+  {/if}
+  {#if $roomStore.workbench}
+    <Workbench workbench={$roomStore.workbench} />
+  {/if}
+  {#if $roomStore.socket}
+    <Socket socket={$roomStore.socket} />
+  {/if}
 </div>
 
 <style>
-    div {
-        display: flex;
-        justify-content: space-between;
-    }
+  div {
+    display: flex;
+  }
 </style>

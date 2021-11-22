@@ -21,7 +21,7 @@ const room1: Room = {
   },
   chest: {
     item: {
-      name: 'Iron',
+      name: 'Tin',
       quantity: 10
     }
   }
@@ -48,12 +48,15 @@ const room3: Room = {
     east: '4'
   },
   workbench: {
-    input: {
-      name: 'Iron',
-      quantity: 1
-    },
-    output: {
+    inputs: [{
       name: 'Copper',
+      quantity: 1
+    }, {
+      name: 'Tin',
+      quantity: 1
+    }],
+    output: {
+      name: 'Bronze',
       quantity: 1
     }
   }
@@ -118,7 +121,7 @@ app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response, ne
   }
 
   const inventory = game.getInventory()
-  if (inventory.removeItem(room.workbench.input)) {
+  if (inventory.removeItems(room.workbench.inputs)) {
     inventory.addItem(room.workbench.output)
   }
 
