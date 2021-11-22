@@ -1,8 +1,9 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 import * as bodyParser from 'body-parser'
 import { Room } from '../types'
 import { Inventory } from './Inventory'
+import { Game } from './Game'
 
 const app = express()
 const port = 3000
@@ -74,37 +75,63 @@ const rooms: Room[] = [room1, room2, room3, room4]
 app.use(cors())
 app.use(bodyParser.json())
 app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
-  console.log({ gameId: req.params.gameId, roomId: req.params.roomId })
+  const game = games.find(game => game.getId() === req.params.gameId)
+
   const roomId = req.params.roomId
-  res.json(rooms[parseInt(roomId) - 1])
+  const room = game?.getRoom(roomId)
+  res.json(room)
 })
 
 // Inventory routes
 
-const inventory = new Inventory()
+app.get('/api/game/:gameId/inventory', (req: Request, res: Response, next: NextFunction) => {
+  const game = games.find(game => game.getId() === req.params.gameId)
+  if (game === undefined) {
+    return next(new Error('game undefined'))
+  }
 
-app.get('/api/game/:gameId/inventory', (req: Request, res: Response) => {
-  console.log({ gameId: req.params.gameId })
-  res.json({ inventory: inventory.getItems() })
+  res.json({ inventory: game?.getInventory().getItems() })
 })
 
-app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response) => {
-  const roomId = req.params.roomId
-  const room = rooms[parseInt(roomId) - 1]
-  if (room.chest !== undefined && room.chest.item.quantity > 0) {
+app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response, next: NextFunction) => {
+  const game = games.find(game => game.getId() === req.params.gameId)
+  const room = game?.getRoom(req.params.roomId)
+
+  if (game === undefined || room === undefined || room.chest === undefined) {
+    return next(new Error('game, room or chest undefined'))
+  }
+
+  const inventory = game.getInventory()
+  if (room.chest.item.quantity > 0) {
     inventory.addItem({ ...room.chest.item, quantity: 1 })
     room.chest.item.quantity -= 1
   }
   res.json({ inventory: inventory.getItems() })
 })
 
-app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response) => {
-  const roomId = req.params.roomId
-  const room = rooms[parseInt(roomId) - 1]
-  if (room.workbench !== undefined) {
-    if (inventory.removeItem(room.workbench.input)) {
-      inventory.addItem(room.workbench.output)
-    }
+app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response, next: NextFunction) => {
+  const game = games.find(game => game.getId() === req.params.gameId)
+  const room = game?.getRoom(req.params.roomId)
+
+  if (game === undefined || room === undefined || room.workbench === undefined) {
+    return next(new Error('game, room or workbench undefined'))
   }
+
+  const inventory = game.getInventory()
+  if (inventory.removeItem(room.workbench.input)) {
+    inventory.addItem(room.workbench.output)
+  }
+
   res.json({ inventory: inventory.getItems() })
+})
+
+const games: Game[] = []
+
+app.post('/api/game', (req: Request, res: Response) => {
+  const game = new Game([...rooms])
+  games.push(game)
+
+  res.json({
+    id: game.getId()
+  })
 })

@@ -32,3 +32,7 @@ export interface Room {
   chest?: Chest
   socket?: Socket
 }
+
+export interface Game {
+  id: string
+}
