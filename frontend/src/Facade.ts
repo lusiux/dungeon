@@ -1,6 +1,6 @@
 import type { Room } from './types'
-import roomStore, { getRoomId } from './stores/Room'
-import inventoryStore from './stores/Inventory'
+import roomStore, { getRoomId, reset as resetRoomStore } from './stores/Room'
+import inventoryStore, { reset as resetInventoryStore } from './stores/Inventory'
 import gameStore, { getGameId } from './stores/Game'
 
 async function updateRoom (): Promise<void> {
@@ -40,6 +40,9 @@ async function updateInventory (): Promise<void> {
 export async function newGame (): Promise<void> {
   const { id } = await (await fetch('/api/game', { method: 'POST' })).json()
   gameStore.set({ id })
+
+  resetRoomStore()
+  resetInventoryStore()
   await updateRoom()
   await updateInventory()
 }

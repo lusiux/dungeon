@@ -10,6 +10,10 @@ export function getRoomId (): string {
   return get(store).id
 }
 
+export function reset (): void {
+  store.set(room)
+}
+
 const store = writable<Room>(room)
 
 export default store
