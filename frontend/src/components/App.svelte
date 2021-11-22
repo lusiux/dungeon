@@ -34,4 +34,8 @@
 	div {
 		max-width: 1024px;
 	}
+
+	:global(div.control-container) {
+		margin-right: 1.3rem;
+	}
 </style>

@@ -21,6 +21,8 @@ export interface Chest {
 
 export interface Socket {
   powered: boolean
+  item: Item
+  targetRoom: string
 }
 
 export interface Room {

@@ -2,7 +2,7 @@
   import inventoryStore from "../stores/Inventory";
 </script>
 
-<div>
+<div class="control-container">
   <h2>Inventory</h2>
   <table>
     <tr>

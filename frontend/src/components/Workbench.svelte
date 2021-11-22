@@ -28,7 +28,7 @@
   }
 </script>
 
-<div>
+<div class="control-container">
   <h3>Workbench</h3>
   <div>
     <h4>Recipe</h4>

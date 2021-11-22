@@ -47,6 +47,13 @@ export async function newGame (): Promise<void> {
   await updateInventory()
 }
 
+export async function plugItem (): Promise<void> {
+  const gameId = getGameId()
+  const roomId = getRoomId()
+  const { id } = await (await fetch(`/api/game/${gameId}/room/${roomId}/plug`)).json()
+  await moveToRoom(id)
+}
+
 export async function startUp (): Promise<void> {
   await updateRoom()
   await updateInventory()

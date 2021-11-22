@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 import * as bodyParser from 'body-parser'
+import clone from 'clone'
 import { Room } from '../types'
-import { Inventory } from './Inventory'
 import { Game } from './Game'
 
 const app = express()
@@ -68,12 +68,43 @@ const room4: Room = {
     north: '2',
     west: '3'
   },
+  workbench: {
+    inputs: [
+      {
+        name: 'Copper',
+        quantity: 2
+      },
+      {
+        name: 'Bronze',
+        quantity: 1
+      },
+      {
+        name: 'Tin',
+        quantity: 1
+      }
+    ],
+    output: {
+      name: 'Toaster',
+      quantity: 1
+    }
+  },
   socket: {
-    powered: false
+    powered: true,
+    item: {
+      name: 'Toaster',
+      quantity: 1
+    },
+    targetRoom: '5'
   }
 }
 
-const rooms: Room[] = [room1, room2, room3, room4]
+const room5: Room = {
+  id: '5',
+  doors: {},
+  description: 'You won!'
+}
+
+const rooms: Room[] = [room1, room2, room3, room4, room5]
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -81,11 +112,13 @@ app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
   const game = games.find(game => game.getId() === req.params.gameId)
 
   const roomId = req.params.roomId
-  const room = game?.getRoom(roomId)
+  const room = clone(game?.getRoom(roomId))
+  if (room?.socket !== undefined) {
+    room.socket.targetRoom = ''
+  }
+
   res.json(room)
 })
-
-// Inventory routes
 
 app.get('/api/game/:gameId/inventory', (req: Request, res: Response, next: NextFunction) => {
   const game = games.find(game => game.getId() === req.params.gameId)
@@ -128,6 +161,21 @@ app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response, ne
   res.json({ inventory: inventory.getItems() })
 })
 
+app.get('/api/game/:gameId/room/:roomId/plug', (req: Request, res: Response, next: NextFunction) => {
+  const game = games.find(game => game.getId() === req.params.gameId)
+  const room = game?.getRoom(req.params.roomId)
+
+  if (game === undefined || room === undefined || room.socket === undefined) {
+    return next(new Error('game, room or workbench undefined'))
+  }
+
+  if (game.getInventory().getItem(room.socket.item.name) === undefined) {
+    next(new Error('No item fits...'))
+  }
+
+  res.json({ id: room.socket.targetRoom })
+})
+
 const games: Game[] = []
 
 app.post('/api/game', (req: Request, res: Response) => {
@@ -138,3 +186,5 @@ app.post('/api/game', (req: Request, res: Response) => {
     id: game.getId()
   })
 })
+
+// TODO: exceptions for undefined items

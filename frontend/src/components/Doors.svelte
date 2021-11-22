@@ -45,8 +45,8 @@
   }
 </style>
 
-<div>
-  <h2>Doors</h2>
+<div class="control-container">
+  <h3>Doors</h3>
   <div class="buttons">
     <div>
       <button disabled={doors.north === undefined} on:click={moveNorth}>North</button>

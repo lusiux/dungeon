@@ -10,7 +10,7 @@
   }
 </script>
 
-<div>
+<div class="control-container">
   <h3>Chest</h3>
   <div>Contains {chest.item.quantity} {chest.item.name}</div>
   <button disabled={chest.item.quantity === 0} on:click={loot}>
