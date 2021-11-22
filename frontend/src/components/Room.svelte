@@ -6,7 +6,11 @@
     import roomStore from "../stores/Room";
 </script>
 
-<div>id: {$roomStore.id}</div>
+<h1>Room</h1>
+<h5>id: {$roomStore.id}</h5>
+{#if $roomStore.description}
+    <p>{$roomStore.description}</p>
+{/if}
 <div>
     <Doors doors={$roomStore.doors}/>
     {#if $roomStore.chest}

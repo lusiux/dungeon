@@ -14,7 +14,6 @@
 	<div>
 		<button on:click={reloadState}>Reload</button>
 	</div>
-	<h1>Room</h1>
 	{#if $roomStore !== undefined}
 	<Room />
 	{/if}

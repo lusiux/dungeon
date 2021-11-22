@@ -20,6 +20,7 @@
     "@types/snowpack-env": "^2.3.3",
     "@web/test-runner": "^0.13.3",
     "chai": "^4.3.4",
+    "http2-proxy": "^5.0.53",
     "snowpack": "^3.8.7",
     "svelte-preprocess": "^4.7.2",
     "ts-standard": "^11.0.0",

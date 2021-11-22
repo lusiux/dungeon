@@ -12,9 +12,16 @@ app.listen(port, () => {
 
 const room1: Room = {
   id: '1',
+  description: 'Welcome stranger!',
   doors: {
     east: '2',
     south: '3'
+  },
+  chest: {
+    item: {
+      name: 'Iron',
+      quantity: 10
+    }
   }
 }
 
@@ -26,8 +33,8 @@ const room2: Room = {
   },
   chest: {
     item: {
-      name: 'Iron',
-      quantity: 1
+      name: 'Copper',
+      quantity: 10
     }
   }
 }
@@ -71,7 +78,7 @@ app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
   res.json(rooms[parseInt(roomId) - 1])
 })
 
-const inventory: Item[] = []
+let inventory: Item[] = []
 
 app.get('/api/game/:gameId/inventory', (req: Request, res: Response) => {
   console.log({ gameId: req.params.gameId })
@@ -81,9 +88,14 @@ app.get('/api/game/:gameId/inventory', (req: Request, res: Response) => {
 app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response) => {
   const roomId = req.params.roomId
   const room = rooms[parseInt(roomId) - 1]
-  if (room.chest !== undefined) {
-    inventory.push({ ...room.chest.item })
-    room.chest.item.quantity = 0
+  if (room.chest !== undefined && room.chest.item.quantity > 0) {
+    const inventoryItem = inventory.find(item => item.name === room.chest?.item.name)
+    if (inventoryItem !== undefined) {
+      inventoryItem.quantity += 1
+    } else {
+      inventory.push({ ...room.chest.item, quantity: 1 })
+    }
+    room.chest.item.quantity -= 1
   }
   res.json({ inventory })
 })
@@ -95,7 +107,14 @@ app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response) =>
     const inputItem = inventory.find(item => item.name === room.workbench?.input.name)
     if (inputItem !== undefined && room.workbench.input.quantity <= inputItem?.quantity) {
       inputItem.quantity -= room.workbench.input.quantity
-      inventory.push({ ...room.workbench.output })
+      const outputInventoryItem = inventory.find(item => item.name === room.workbench?.output.name)
+      if (outputInventoryItem !== undefined) {
+        outputInventoryItem.quantity += room.workbench.output.quantity
+      } else {
+        inventory.push({ ...room.workbench.output })
+      }
+
+      inventory = inventory.filter(item => item.quantity > 0)
     }
   }
   res.json({ inventory })

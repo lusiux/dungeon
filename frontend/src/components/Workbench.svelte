@@ -1,13 +1,13 @@
 <script lang="ts">
     import { craftItem } from "../Facade";
 
-    import type { Workbench } from "src/types";
+    import type { Item, Workbench } from "../types";
     import inventoryStore from "../stores/Inventory"
 
     export let workbench: Workbench
 
-    function craftable() : boolean {
-        const item = $inventoryStore.find(item => item.name === workbench.input.name)
+    function craftable(inventory: Item[]) : boolean {
+        const item = inventory.find(item => item.name === workbench.input.name)
         if ( ! item ) {
             return false
         }
@@ -19,7 +19,7 @@
         return true
     }
 
-    $: canBeCrafted = craftable()
+    $: canBeCrafted = craftable($inventoryStore)
 
     function craft() {
         craftItem()

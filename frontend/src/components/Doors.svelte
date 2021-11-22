@@ -33,17 +33,30 @@
 
     moveToRoom(doors.west)
   }
-
-
 </script>
+
+<style>
+  .buttons div {
+    text-align: center;
+  }
+
+  .buttons button {
+    margin: 0.4rem;
+  }
+</style>
 
 <div>
   <h2>Doors</h2>
-  <div>(what you see...)</div>
-  <button disabled={doors.north === undefined} on:click={moveNorth}
-    >North</button
-  >
-  <button disabled={doors.east === undefined} on:click={moveEast}>East</button>
-  <button disabled={doors.south === undefined} on:click={moveSouth}>South</button>
-  <button disabled={doors.west === undefined} on:click={moveWest}>West</button>
+  <div class="buttons">
+    <div>
+      <button disabled={doors.north === undefined} on:click={moveNorth}>North</button>
+    </div>
+    <div>
+      <button disabled={doors.west === undefined} on:click={moveWest}>West</button>
+      <button disabled={doors.east === undefined} on:click={moveEast}>East</button>
+    </div>
+    <div>
+      <button disabled={doors.south === undefined} on:click={moveSouth}>South</button>
+    </div>
+  </div>
 </div>
