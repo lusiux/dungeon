@@ -24,6 +24,19 @@ const room1: Room = {
       name: 'Tin',
       quantity: 10
     }
+  },
+  workbench: {
+    inputs: [{
+      name: 'Copper',
+      quantity: 1
+    }, {
+      name: 'Tin',
+      quantity: 1
+    }],
+    output: {
+      name: 'Bronze',
+      quantity: 1
+    }
   }
 }
 
@@ -37,6 +50,19 @@ const room2: Room = {
     item: {
       name: 'Copper',
       quantity: 10
+    }
+  },
+  workbench: {
+    inputs: [{
+      name: 'Copper',
+      quantity: 1
+    }, {
+      name: 'Tin',
+      quantity: 1
+    }],
+    output: {
+      name: 'Bronze',
+      quantity: 1
     }
   }
 }
