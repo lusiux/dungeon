@@ -1,60 +1,35 @@
 <script lang="ts">
-  import { craftItem } from "../Facade";
+  import { craftItem } from "../Facade"
 
-  import type { Item, Workbench } from "../types";
-  import inventoryStore from "../stores/Inventory";
+  import type { Item, Workbench } from "../types"
+  import inventoryStore from "../stores/Inventory"
+  import roomStore from "../stores/Room"
+  import Recipe from "./Recipe.svelte";
 
-  export let workbench: Workbench;
-
-  function craftable(inventory: Item[]): boolean {
+  function craftable(inventory: Item[], workbench: Workbench): boolean {
     for (const inputItem of workbench.inputs) {
       const item = inventory.find((item) => item.name === inputItem.name);
-      if (!item) {
-        return false;
+      if (item === undefined) {
+        return false
       }
 
       if (item.quantity < inputItem.quantity) {
-        return false;
+        return false
       }
     }
 
-    return true;
-  }
-
-  $: canBeCrafted = craftable($inventoryStore);
-
-  function craft() {
-    craftItem();
+    return true
   }
 </script>
 
+{#if $roomStore.workbench !== undefined}
 <div class="control-container">
   <h3>Workbench</h3>
-  <div>
-    <h4>Recipe</h4>
-    <h5>Ingredients</h5>
-    <ul>
-      {#each workbench.inputs as item}
-        <li>{item.quantity}x {item.name}</li>
-      {/each}
-    </ul>
-    <h5>Output</h5>
-    <ul>
-      <li>
-        {workbench.output.quantity}x {workbench.output.name}
-      </li>
-    </ul>
-    <button disabled={!canBeCrafted} on:click={craft}>Craft!</button>
-  </div>
+  <Recipe inputs={$roomStore.workbench.inputs} output={$roomStore.workbench.output}/>
+  <button disabled={!craftable($inventoryStore, $roomStore.workbench)} on:click={craftItem}>Craft!</button>
 </div>
+{/if}
 
 <style>
-  h4,
-  h5 {
-    margin-bottom: 0.3rem;
-    margin-top: 0;
-  }
-  ul {
-    margin: 0;
-  }
+
 </style>

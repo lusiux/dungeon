@@ -13,15 +13,9 @@
 {/if}
 <div>
   <Doors doors={$roomStore.doors} />
-  {#if $roomStore.chest}
-    <Chest chest={$roomStore.chest} />
-  {/if}
-  {#if $roomStore.workbench}
-    <Workbench workbench={$roomStore.workbench} />
-  {/if}
-  {#if $roomStore.socket}
-    <Socket socket={$roomStore.socket} />
-  {/if}
+  <Chest />
+  <Workbench />
+  <Socket />
 </div>
 
 <style>

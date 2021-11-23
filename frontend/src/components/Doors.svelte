@@ -1,37 +1,37 @@
 <script lang="ts">
-  import { moveToRoom } from "../Facade";
-  import type { Doors } from "../types";
-
-  export let doors: Doors
+  import { moveToRoom } from "../Facade"
+  import roomStore from "../stores/Room"
 
   function moveNorth() {
-    if ( doors.north === undefined ) {
+    if ( $roomStore.doors.north === undefined ) {
       return
     }
 
-    moveToRoom(doors.north)
+    moveToRoom($roomStore.doors.north)
   }
 
   function moveEast() {
-    if ( doors.east === undefined ) {
+    if ( $roomStore.doors.east === undefined ) {
       return
     }
 
-    moveToRoom(doors.east)
+    moveToRoom($roomStore.doors.east)
   }
+
   function moveSouth() {
-    if ( doors.south === undefined ) {
+    if ( $roomStore.doors.south === undefined ) {
       return
     }
 
-    moveToRoom(doors.south)
+    moveToRoom($roomStore.doors.south)
   }
+
   function moveWest() {
-    if ( doors.west === undefined ) {
+    if ( $roomStore.doors.west === undefined ) {
       return
     }
 
-    moveToRoom(doors.west)
+    moveToRoom($roomStore.doors.west)
   }
 </script>
 
@@ -49,14 +49,14 @@
   <h3>Doors</h3>
   <div class="buttons">
     <div>
-      <button disabled={doors.north === undefined} on:click={moveNorth}>North</button>
+      <button disabled={$roomStore.doors.north === undefined} on:click={moveNorth}>North</button>
     </div>
     <div>
-      <button disabled={doors.west === undefined} on:click={moveWest}>West</button>
-      <button disabled={doors.east === undefined} on:click={moveEast}>East</button>
+      <button disabled={$roomStore.doors.west === undefined} on:click={moveWest}>West</button>
+      <button disabled={$roomStore.doors.east === undefined} on:click={moveEast}>East</button>
     </div>
     <div>
-      <button disabled={doors.south === undefined} on:click={moveSouth}>South</button>
+      <button disabled={$roomStore.doors.south === undefined} on:click={moveSouth}>South</button>
     </div>
   </div>
 </div>
