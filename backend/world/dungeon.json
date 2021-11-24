@@ -44,6 +44,12 @@
                  "height":32,
                  "id":37,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"You won!"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -56,6 +62,12 @@
                  "height":32,
                  "id":40,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"Welcome stranger!"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -227,7 +239,7 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"Iron"
+                         "value":"Copper"
                         }, 
                         {
                          "name":"quantity",
@@ -246,6 +258,17 @@
                  "height":32,
                  "id":30,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Tin"
+                        }, 
+                        {
+                         "name":"quantity",
+                         "type":"int",
+                         "value":10
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -308,11 +331,35 @@
                  "height":32,
                  "id":36,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"recipe",
+                         "type":"string",
+                         "value":"Toaster"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
                  "x":32,
+                 "y":64
+                }, 
+                {
+                 "gid":12,
+                 "height":32,
+                 "id":61,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"recipe",
+                         "type":"string",
+                         "value":"Bronze"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
                  "y":64
                 }],
          "opacity":1,
@@ -357,7 +404,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":61,
+ "nextobjectid":63,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
