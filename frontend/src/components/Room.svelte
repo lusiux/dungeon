@@ -12,7 +12,7 @@
   <p>{$roomStore.description}</p>
 {/if}
 <div>
-  <Doors doors={$roomStore.doors} />
+  <Doors />
   <Chest />
   <Workbench />
   <Socket />

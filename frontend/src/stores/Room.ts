@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store'
-import type { Room } from 'src/types'
+import type { Room } from '../types'
 
 const room: Room = {
   id: '1',

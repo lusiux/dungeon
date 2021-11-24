@@ -10,7 +10,10 @@ async function updateRoom (): Promise<void> {
   roomStore.set(room)
 }
 
-export async function moveToRoom (roomId: string): Promise<void> {
+export async function moveToRoom (roomId: string | undefined): Promise<void> {
+  if (roomId === undefined) {
+    return
+  }
   const gameId = getGameId()
   const room: Room = await (await fetch(`/api/game/${gameId}/room/${roomId}`)).json()
   roomStore.set(room)
@@ -51,6 +54,7 @@ export async function plugItem (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
   const { id } = await (await fetch(`/api/game/${gameId}/room/${roomId}/plug`)).json()
+  await updateInventory()
   await moveToRoom(id)
 }
 

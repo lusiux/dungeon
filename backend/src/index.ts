@@ -195,8 +195,8 @@ app.get('/api/game/:gameId/room/:roomId/plug', (req: Request, res: Response, nex
     return next(new Error('game, room or workbench undefined'))
   }
 
-  if (game.getInventory().getItem(room.socket.item.name) === undefined) {
-    next(new Error('No item fits...'))
+  if (!game.getInventory().removeItem(room.socket.item)) {
+    return next(new Error('No item fits...'))
   }
 
   res.json({ id: room.socket.targetRoom })
