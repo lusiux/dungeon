@@ -139,7 +139,7 @@ app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
   const room = clone(game.getRoom(req.params.roomId))
 
   if (room.socket !== undefined) {
-    room.socket.targetRoom = ''
+    delete room.socket.targetRoom
   }
 
   res.json(room)
