@@ -19,6 +19,7 @@ app.use(bodyParser.json())
 app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
   const game = getGameById(req.params.gameId)
   const room = clone(game.getRoom(req.params.roomId))
+  game.updateCurrentRoom(room.id)
 
   if (room.socket !== undefined) {
     delete room.socket.targetRoom
@@ -79,10 +80,20 @@ function getGameById (gameId: string): Game {
 }
 
 app.post('/api/game', (req: Request, res: Response) => {
-  const game = new Game(clone(rooms))
+  const game = new Game(clone(rooms), '0x0')
   games.push(game)
 
   res.json({
-    id: game.getId()
+    id: game.getId(),
+    roomId: game.getCurrentRoomId()
+  })
+})
+
+app.get('/api/game/:gameId', (req: Request, res: Response) => {
+  const game = getGameById(req.params.gameId)
+
+  res.json({
+    id: game.getId(),
+    roomId: game.getCurrentRoomId()
   })
 })

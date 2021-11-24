@@ -36,4 +36,5 @@ export interface Room {
 
 export interface Game {
   id: string
+  roomId: string
 }

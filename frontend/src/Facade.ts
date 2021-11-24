@@ -1,7 +1,7 @@
-import type { Room } from './types'
-import roomStore, { getRoomId, reset as resetRoomStore } from './stores/Room'
+import type { Game, Room } from './types'
+import roomStore, { reset as resetRoomStore } from './stores/Room'
 import inventoryStore, { reset as resetInventoryStore } from './stores/Inventory'
-import gameStore, { getGameId } from './stores/Game'
+import gameStore, { getGameId, getRoomId } from './stores/Game'
 
 async function updateRoom (): Promise<void> {
   const gameId = getGameId()
@@ -17,6 +17,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
   const gameId = getGameId()
   const room: Room = await (await fetch(`/api/game/${gameId}/room/${roomId}`)).json()
   roomStore.set(room)
+  gameStore.set({ id: gameId, roomId: room.id })
 }
 
 export async function pickChest (): Promise<void> {
@@ -41,8 +42,14 @@ async function updateInventory (): Promise<void> {
 }
 
 export async function newGame (): Promise<void> {
-  const { id } = await (await fetch('/api/game', { method: 'POST' })).json()
-  await resumeGame(id)
+  const { id, roomId } = await (await fetch('/api/game', { method: 'POST' })).json()
+  gameStore.set({ id, roomId })
+
+  await startUp()
+}
+
+async function getGame (id: string): Promise<Game> {
+  return await (await fetch(`/api/game/${id}`)).json()
 }
 
 export async function plugItem (): Promise<void> {
@@ -54,13 +61,10 @@ export async function plugItem (): Promise<void> {
 }
 
 export async function resumeGame (gameId: string): Promise<void> {
-  resetRoomStore()
-  resetInventoryStore()
+  const game = await getGame(gameId)
+  gameStore.set({ id: gameId, roomId: game.roomId })
 
-  gameStore.set({ id: gameId })
-
-  await updateRoom()
-  await updateInventory()
+  await startUp()
 }
 
 export async function startUp (): Promise<void> {
@@ -72,5 +76,5 @@ export async function leaveGame (): Promise<void> {
   resetRoomStore()
   resetInventoryStore()
 
-  gameStore.set({ id: '' })
+  gameStore.set({ id: '', roomId: '' })
 }

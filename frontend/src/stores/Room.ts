@@ -1,13 +1,9 @@
-import { get, writable } from 'svelte/store'
+import { writable } from 'svelte/store'
 import type { Room } from '../types'
 
 const room: Room = {
-  id: '0x0',
+  id: '',
   doors: {}
-}
-
-export function getRoomId (): string {
-  return get(store).id
 }
 
 export function reset (): void {

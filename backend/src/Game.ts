@@ -8,10 +8,18 @@ export class Game {
   private readonly id: string
   private readonly rooms: Room[]
 
-  constructor (rooms: Room[]) {
+  constructor (rooms: Room[], private currentRoomId: string) {
     this.rooms = clone(rooms)
     this.id = uuid()
     this.inventory = new Inventory()
+  }
+
+  public updateCurrentRoom (roomId: string): void {
+    this.currentRoomId = roomId
+  }
+
+  public getCurrentRoomId (): string {
+    return this.currentRoomId
   }
 
   public getId (): string {
