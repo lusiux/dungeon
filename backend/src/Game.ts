@@ -18,8 +18,12 @@ export class Game {
     return this.id
   }
 
-  public getRoom (roomId: string): Room | undefined {
-    return this.rooms.find(room => room.id === roomId)
+  public getRoom (roomId: string): Room {
+    const room = this.rooms.find(room => room.id === roomId)
+    if (room === undefined) {
+      throw new Error(`Room with id ${roomId} not found in game ${this.id}`)
+    }
+    return room
   }
 
   public getInventory (): Inventory {

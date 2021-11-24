@@ -46,11 +46,33 @@ export class Inventory {
     return true
   }
 
+  public removeItemOrThrow (item: Item): void {
+    const itemRemoved = this.removeItem(item)
+    if (!itemRemoved) {
+      throw new Error(`Item with name ${item.name} and quantity ${item.quantity} can't be removed from inventory`)
+    }
+  }
+
+  public removeItemsOrThrow (items: Item[]): void {
+    const itemsRemoved = this.removeItems(items)
+    if (!itemsRemoved) {
+      throw new Error('Removal of items failed')
+    }
+  }
+
   public getItems (): Item[] {
     return this.items
   }
 
   public getItem (name: string): Item | undefined {
     return this.items.find(item => item.name === name)
+  }
+
+  public getItemOrThrow (name: string): Item {
+    const item = this.getItem(name)
+    if (item === undefined) {
+      throw new Error(`Item with name ${name} not found in inventory`)
+    }
+    return item
   }
 }

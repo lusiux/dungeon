@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 import * as bodyParser from 'body-parser'
 import clone from 'clone'
-import { Room } from '../types'
+import { getChest, getSocket, getWorkbench, Room } from '../types'
 import { Game } from './Game'
 
 const app = express()
@@ -135,11 +135,10 @@ const rooms: Room[] = [room1, room2, room3, room4, room5]
 app.use(cors())
 app.use(bodyParser.json())
 app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
-  const game = games.find(game => game.getId() === req.params.gameId)
+  const game = getGameById(req.params.gameId)
+  const room = clone(game.getRoom(req.params.roomId))
 
-  const roomId = req.params.roomId
-  const room = clone(game?.getRoom(roomId))
-  if (room?.socket !== undefined) {
+  if (room.socket !== undefined) {
     room.socket.targetRoom = ''
   }
 
@@ -147,70 +146,61 @@ app.get('/api/game/:gameId/room/:roomId', (req: Request, res: Response) => {
 })
 
 app.get('/api/game/:gameId/inventory', (req: Request, res: Response, next: NextFunction) => {
-  const game = games.find(game => game.getId() === req.params.gameId)
-  if (game === undefined) {
-    return next(new Error('game undefined'))
-  }
+  const game = getGameById(req.params.gameId)
 
   res.json({ inventory: game?.getInventory().getItems() })
 })
 
 app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response, next: NextFunction) => {
-  const game = games.find(game => game.getId() === req.params.gameId)
-  const room = game?.getRoom(req.params.roomId)
-
-  if (game === undefined || room === undefined || room.chest === undefined) {
-    return next(new Error('game, room or chest undefined'))
-  }
-
+  const game = getGameById(req.params.gameId)
   const inventory = game.getInventory()
-  if (room.chest.item.quantity > 0) {
-    inventory.addItem({ ...room.chest.item, quantity: 1 })
-    room.chest.item.quantity -= 1
+  const room = game.getRoom(req.params.roomId)
+  const chest = getChest(room)
+
+  if (chest.item.quantity > 0) {
+    inventory.addItem({ ...chest.item, quantity: 1 })
+    chest.item.quantity -= 1
   }
   res.json({ inventory: inventory.getItems() })
 })
 
 app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response, next: NextFunction) => {
-  const game = games.find(game => game.getId() === req.params.gameId)
-  const room = game?.getRoom(req.params.roomId)
-
-  if (game === undefined || room === undefined || room.workbench === undefined) {
-    return next(new Error('game, room or workbench undefined'))
-  }
-
+  const game = getGameById(req.params.gameId)
   const inventory = game.getInventory()
-  if (inventory.removeItems(room.workbench.inputs)) {
-    inventory.addItem(room.workbench.output)
-  }
+  const room = game.getRoom(req.params.roomId)
+  const workbench = getWorkbench(room)
+
+  inventory.removeItemsOrThrow(workbench.inputs)
+  inventory.addItem(workbench.output)
 
   res.json({ inventory: inventory.getItems() })
 })
 
 app.get('/api/game/:gameId/room/:roomId/plug', (req: Request, res: Response, next: NextFunction) => {
-  const game = games.find(game => game.getId() === req.params.gameId)
-  const room = game?.getRoom(req.params.roomId)
+  const game = getGameById(req.params.gameId)
+  const room = game.getRoom(req.params.roomId)
+  const socket = getSocket(room)
 
-  if (game === undefined || room === undefined || room.socket === undefined) {
-    return next(new Error('game, room or workbench undefined'))
-  }
+  game.getInventory().removeItemOrThrow(socket.item)
 
-  if (!game.getInventory().removeItem(room.socket.item)) {
-    return next(new Error('No item fits...'))
-  }
-
-  res.json({ id: room.socket.targetRoom })
+  res.json({ id: socket.targetRoom })
 })
 
 const games: Game[] = []
 
+function getGameById (gameId: string): Game {
+  const game = games.find(game => game.getId() === gameId)
+  if (game === undefined) {
+    throw new Error(`Game with id ${gameId} not found`)
+  }
+  return game
+}
+
 app.post('/api/game', (req: Request, res: Response) => {
-  const game = new Game([...rooms])
+  const game = new Game(clone(rooms))
   games.push(game)
 
   res.json({
     id: game.getId()
   })
 })
-
-// TODO: exceptions for undefined items
