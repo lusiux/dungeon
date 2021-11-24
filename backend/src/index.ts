@@ -151,7 +151,7 @@ app.get('/api/game/:gameId/inventory', (req: Request, res: Response, next: NextF
   res.json({ inventory: game?.getInventory().getItems() })
 })
 
-app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response, next: NextFunction) => {
+app.post('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response, next: NextFunction) => {
   const game = getGameById(req.params.gameId)
   const inventory = game.getInventory()
   const room = game.getRoom(req.params.roomId)
@@ -164,7 +164,7 @@ app.get('/api/game/:gameId/room/:roomId/pickChest', (req: Request, res: Response
   res.json({ inventory: inventory.getItems() })
 })
 
-app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response, next: NextFunction) => {
+app.post('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response, next: NextFunction) => {
   const game = getGameById(req.params.gameId)
   const inventory = game.getInventory()
   const room = game.getRoom(req.params.roomId)
@@ -176,7 +176,7 @@ app.get('/api/game/:gameId/room/:roomId/craft', (req: Request, res: Response, ne
   res.json({ inventory: inventory.getItems() })
 })
 
-app.get('/api/game/:gameId/room/:roomId/plug', (req: Request, res: Response, next: NextFunction) => {
+app.post('/api/game/:gameId/room/:roomId/plug', (req: Request, res: Response, next: NextFunction) => {
   const game = getGameById(req.params.gameId)
   const room = game.getRoom(req.params.roomId)
   const socket = getSocket(room)

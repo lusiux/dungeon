@@ -22,7 +22,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
 export async function pickChest (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
-  const { inventory } = await (await fetch(`/api/game/${gameId}/room/${roomId}/pickChest`)).json()
+  const { inventory } = await (await fetch(`/api/game/${gameId}/room/${roomId}/pickChest`, { method: 'POST' })).json()
   await updateRoom()
   inventoryStore.set(inventory)
 }
@@ -30,7 +30,7 @@ export async function pickChest (): Promise<void> {
 export async function craftItem (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
-  const { inventory } = await (await fetch(`/api/game/${gameId}/room/${roomId}/craft`)).json()
+  const { inventory } = await (await fetch(`/api/game/${gameId}/room/${roomId}/craft`, { method: 'POST' })).json()
   inventoryStore.set(inventory)
 }
 
@@ -53,7 +53,7 @@ export async function newGame (): Promise<void> {
 export async function plugItem (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
-  const { id } = await (await fetch(`/api/game/${gameId}/room/${roomId}/plug`)).json()
+  const { id } = await (await fetch(`/api/game/${gameId}/room/${roomId}/plug`, { method: 'POST' })).json()
   await updateInventory()
   await moveToRoom(id)
 }
