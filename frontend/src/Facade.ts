@@ -42,12 +42,7 @@ async function updateInventory (): Promise<void> {
 
 export async function newGame (): Promise<void> {
   const { id } = await (await fetch('/api/game', { method: 'POST' })).json()
-  gameStore.set({ id })
-
-  resetRoomStore()
-  resetInventoryStore()
-  await updateRoom()
-  await updateInventory()
+  await resumeGame(id)
 }
 
 export async function plugItem (): Promise<void> {
@@ -58,7 +53,24 @@ export async function plugItem (): Promise<void> {
   await moveToRoom(id)
 }
 
+export async function resumeGame (gameId: string): Promise<void> {
+  resetRoomStore()
+  resetInventoryStore()
+
+  gameStore.set({ id: gameId })
+
+  await updateRoom()
+  await updateInventory()
+}
+
 export async function startUp (): Promise<void> {
   await updateRoom()
   await updateInventory()
+}
+
+export async function leaveGame (): Promise<void> {
+  resetRoomStore()
+  resetInventoryStore()
+
+  gameStore.set({ id: '' })
 }

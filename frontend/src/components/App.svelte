@@ -1,41 +1,42 @@
-<script>
-	import Inventory from "./Inventory.svelte";
-	import Room from "./Room.svelte";
+<script lang="ts">
+	import gameStore from "../stores/Game";
+	import { newGame as startNewGame, resumeGame, startUp } from "../Facade";
+	import Game from "./Game.svelte";
 
-	import roomStore from "../stores/Room"
-	import gameStore from "../stores/Game"
-	import { newGame, startUp } from "../Facade";
-
-	function reloadState() {
-		startUp()
-	}
-
-  function startNewGame() {
-    newGame()
-  }
+	let newGameId: string;
 </script>
 
-<div>
-  <div>
-    id: {$gameStore.id}
-    <button on:click={startNewGame}>Start new game</button>
-    <button on:click={reloadState}>Reload</button>
-  </div>
-	{#if $gameStore.id !== ''}
-		{#if $roomStore !== undefined}
-		<Room />
-		{/if}
-		<h1>Player</h1>
-		<Inventory />
-	{/if}
-</div>
+{#if $gameStore.id === ""}
+	<div class="main">
+		<div>
+			<button on:click={startNewGame}>Start new game</button>
+		</div>
+		<div>
+				<h3>Resume existing game</h3>
+				id: <input type="text" bind:value={newGameId} />
+				<button disabled={newGameId === undefined || newGameId === ""} on:click={() => resumeGame(newGameId)}>
+					Resume game
+				</button>
+		</div>
+	</div>
+{:else}
+	<Game />
+{/if}
 
 <style>
-	div {
+	div.main {
+		margin: auto;
+		width: 30%;
+		height: 300px;
 		max-width: 1024px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
 	}
 
-	:global(div.control-container) {
-		margin-right: 1.3rem;
+	div.main div {
+		margin: 1rem;
+		text-align: center;
 	}
 </style>
