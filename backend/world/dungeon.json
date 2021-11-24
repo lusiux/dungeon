@@ -196,9 +196,9 @@
                  "y":96
                 }, 
                 {
-                 "gid":1,
+                 "gid":9,
                  "height":32,
-                 "id":57,
+                 "id":60,
                  "name":"",
                  "rotation":0,
                  "type":"",
@@ -218,18 +218,6 @@
          "id":5,
          "name":"Chests",
          "objects":[
-                {
-                 "gid":14,
-                 "height":32,
-                 "id":28,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":32,
-                 "y":64
-                }, 
                 {
                  "gid":13,
                  "height":32,
@@ -273,6 +261,45 @@
         }, 
         {
          "draworder":"topdown",
+         "id":8,
+         "name":"Sockets",
+         "objects":[
+                {
+                 "gid":14,
+                 "height":32,
+                 "id":28,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"object",
+                         "value":37
+                        }, 
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"Toaster"
+                        }, 
+                        {
+                         "name":"quantity",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":64
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":6,
          "name":"Workbench",
          "objects":[
@@ -286,7 +313,7 @@
                  "visible":true,
                  "width":32,
                  "x":32,
-                 "y":32
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -329,8 +356,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":8,
- "nextobjectid":58,
+ "nextlayerid":9,
+ "nextobjectid":61,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -343,7 +370,7 @@
          "imageheight":96,
          "imagewidth":320,
          "margin":0,
-         "name":"Rooms",
+         "name":"Dungeon",
          "objectalignment":"bottomleft",
          "spacing":0,
          "tilecount":30,
@@ -519,8 +546,16 @@
                  "type":"Doors"
                 }, 
                 {
+                 "id":11,
+                 "type":"Workbench"
+                }, 
+                {
                  "id":12,
                  "type":"Chest"
+                }, 
+                {
+                 "id":13,
+                 "type":"Socket"
                 }, 
                 {
                  "id":14,
@@ -596,7 +631,7 @@
                  "id":20,
                  "properties":[
                         {
-                         "name":"spawn",
+                         "name":"spawnPoint",
                          "type":"bool",
                          "value":true
                         }]
@@ -605,7 +640,7 @@
                  "id":21,
                  "properties":[
                         {
-                         "name":"won",
+                         "name":"endPoint",
                          "type":"bool",
                          "value":true
                         }]
