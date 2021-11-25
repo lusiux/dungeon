@@ -1,5 +1,6 @@
 import { readFile } from 'fs/promises'
 import path from 'path'
+import { v4 as uuid } from 'uuid'
 
 import { Room, Workbench } from '../types'
 
@@ -46,6 +47,7 @@ async function run (): Promise<void> {
   const roomTileset: RoomsTileset = parsed.tilesets.find(tileset => tileset.name === 'Dungeon') as RoomsTileset
   const parsedRoomTileset = parseTileset(roomTileset)
   const parsedRooms = parseRooms(roomLayer?.objects as LayerObject[], parsedRoomTileset)
+  updateDoors(parsedRooms)
 
   const chestLayer = parsed.layers.find(layer => layer.name === 'Chests')
   parseChests(chestLayer?.objects as LayerObject[], parsedRooms)
@@ -56,23 +58,41 @@ async function run (): Promise<void> {
   const workbenchLayer = parsed.layers.find(layer => layer.name === 'Workbench')
   parseWorkbenches(workbenchLayer?.objects as LayerObject[], parsedRooms)
 
-  console.log(JSON.stringify(parsedRooms))
+  console.log(JSON.stringify({ rooms, start: roomIdLookupTable['0x0'] }))
+}
+
+function updateDoors (rooms: Room[]): void {
+  for (const room of rooms) {
+    if (room.doors.north !== undefined) {
+      room.doors.north = roomIdLookupTable[room.doors.north]
+    }
+    if (room.doors.east !== undefined) {
+      room.doors.east = roomIdLookupTable[room.doors.east]
+    }
+    if (room.doors.south !== undefined) {
+      room.doors.south = roomIdLookupTable[room.doors.south]
+    }
+    if (room.doors.west !== undefined) {
+      room.doors.west = roomIdLookupTable[room.doors.west]
+    }
+  }
 }
 
 function parseSockets (objects: LayerObject[], rooms: Room[]): void {
   for (const object of objects) {
     const properties = listToRecord(object.properties)
-    const { id: roomId } = parseCoordinates(object)
+    const { id } = parseCoordinates(object)
 
-    const room = rooms.find(room => room.id === roomId)
+    const room = roomLookupTable[id]
     if (room === undefined) {
       throw new Error(`No room found for socket with id ${object.id}`)
     }
     if (room.socket !== undefined) {
-      throw new Error(`Socket already exists for room with id ${room.id}`)
+      throw new Error(`Socket already exists for room with id ${id}`)
     }
 
-    const targetRoom = rooms.find(room => room.tid === properties.destination.toString())
+    const targetRoomId = properties.destination.toString()
+    const targetRoom = roomLookupTable[targetRoomId]
     if (targetRoom === undefined) {
       throw new Error(`Can't find target room for socket with id ${object.id}`)
     }
@@ -82,7 +102,7 @@ function parseSockets (objects: LayerObject[], rooms: Room[]): void {
         name: properties.item,
         quantity: properties.quantity
       },
-      targetRoom: targetRoom.id,
+      targetRoom: roomIdLookupTable[targetRoomId],
       powered: true
     }
   }
@@ -97,12 +117,12 @@ function parseChests (objects: LayerObject[], rooms: Room[]): void {
       throw new Error(`name and/or quantity is missing in properties of objec ${object.id}`)
     }
 
-    const room = rooms.find(room => room.id === id)
+    const room = roomLookupTable[id]
     if (room === undefined) {
       throw new Error(`No room found for chest with id ${object.id}`)
     }
     if (room.chest !== undefined) {
-      throw new Error(`Chest already exists for room with id ${room.id}`)
+      throw new Error(`Chest already exists for room with id ${id}`)
     }
 
     room.chest = {
@@ -166,17 +186,21 @@ function parseWorkbenches (objects: LayerObject[], rooms: Room[]): void {
       throw new Error(`matching recipe for ${properties.recipe} not found`)
     }
 
-    const room = rooms.find(room => room.id === id)
+    const room = roomLookupTable[id]
     if (room === undefined) {
       throw new Error(`No room found for workbench with id ${object.id}`)
     }
     if (room.workbench !== undefined) {
-      throw new Error(`Workbench already exists for room with id ${room.id}`)
+      throw new Error(`Workbench already exists for room with id ${id}`)
     }
 
     room.workbench = recipe
   }
 }
+
+const roomLookupTable: Record<string, Room> = {}
+const roomIdLookupTable: Record<string, string> = {}
+const rooms: Record<string, Room> = {}
 
 function parseRooms (objects: LayerObject[], tiles: ParsedTile[]): Room[] {
   return objects.map(object => {
@@ -184,9 +208,7 @@ function parseRooms (objects: LayerObject[], tiles: ParsedTile[]): Room[] {
     const { x, y, id } = parseCoordinates(object)
     const properties = listToRecord(object.properties)
 
-    return {
-      id,
-      tid: object.id.toString(),
+    const room = {
       doors: {
         north: tile?.properties?.north !== undefined ? `${x}x${y - 1}` : undefined,
         east: tile?.properties?.east !== undefined ? `${x + 1}x${y}` : undefined,
@@ -195,6 +217,15 @@ function parseRooms (objects: LayerObject[], tiles: ParsedTile[]): Room[] {
       },
       description: properties.description
     }
+
+    const uid = uuid()
+    roomLookupTable[id] = room
+    roomLookupTable[object.id.toString()] = room
+    roomIdLookupTable[id] = uid
+    roomIdLookupTable[object.id.toString()] = uid
+    rooms[uid] = room
+
+    return room
   })
 }
 

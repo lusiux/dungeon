@@ -26,8 +26,6 @@ export interface Socket {
 }
 
 export interface Room {
-  id: string
-  tid?: string
   description?: string
   doors: Doors
   workbench?: Workbench
@@ -37,21 +35,21 @@ export interface Room {
 
 export function getWorkbench (room: Room): Workbench {
   if (room.workbench === undefined) {
-    throw new Error(`No workbench found in room with id ${room.id}`)
+    throw new Error('No workbench found')
   }
   return room.workbench
 }
 
 export function getSocket (room: Room): Socket {
   if (room.socket === undefined) {
-    throw new Error(`No socket foundin room with id ${room.id}`)
+    throw new Error('No socket found in room')
   }
   return room.socket
 }
 
 export function getChest (room: Room): Chest {
   if (room.chest === undefined) {
-    throw new Error(`No chest foundin room with id ${room.id}`)
+    throw new Error('No chest foundin room')
   }
   return room.chest
 }

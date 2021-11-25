@@ -17,7 +17,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
   const gameId = getGameId()
   const room: Room = await (await fetch(`/api/game/${gameId}/room/${roomId}`)).json()
   roomStore.set(room)
-  gameStore.set({ id: gameId, roomId: room.id })
+  gameStore.set({ id: gameId, roomId })
 }
 
 export async function pickChest (): Promise<void> {

@@ -2,7 +2,6 @@ import { writable } from 'svelte/store'
 import type { Room } from '../types'
 
 const room: Room = {
-  id: '',
   doors: {}
 }
 

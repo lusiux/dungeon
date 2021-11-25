@@ -26,7 +26,6 @@ export interface Socket {
 }
 
 export interface Room {
-  id: string
   description?: string
   doors: Doors
   workbench?: Workbench
