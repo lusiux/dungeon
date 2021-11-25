@@ -1,9 +1,14 @@
 <script lang="ts">
 	import gameStore from "../stores/Game";
-	import { newGame as startNewGame, resumeGame, startUp } from "../Facade";
+	import { newGame, newGame as startNewGame, resumeGame, startUp } from "../Facade";
 	import Game from "./Game.svelte";
 
 	let newGameId: string;
+
+	function resumeExistingGame() {
+		resumeGame(newGameId)
+		newGameId = ''
+	}
 </script>
 
 {#if $gameStore.id === ""}
@@ -14,7 +19,7 @@
 		<div>
 				<h3>Resume existing game</h3>
 				id: <input type="text" bind:value={newGameId} />
-				<button disabled={newGameId === undefined || newGameId === ""} on:click={() => resumeGame(newGameId)}>
+				<button disabled={newGameId === undefined || newGameId === ""} on:click={resumeExistingGame}>
 					Resume game
 				</button>
 		</div>
