@@ -7,7 +7,7 @@
          "target":"dungeon-export.csv"
         }
     },
- "height":4,
+ "height":5,
  "infinite":false,
  "layers":[
         {
@@ -15,66 +15,6 @@
          "id":3,
          "name":"Rooms",
          "objects":[
-                {
-                 "gid":5,
-                 "height":32,
-                 "id":25,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":32,
-                 "y":32
-                }, 
-                {
-                 "gid":7,
-                 "height":32,
-                 "id":27,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":32,
-                 "y":64
-                }, 
-                {
-                 "gid":10,
-                 "height":32,
-                 "id":37,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"description",
-                         "type":"string",
-                         "value":"You won!"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":32
-                }, 
-                {
-                 "gid":4,
-                 "height":32,
-                 "id":40,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"description",
-                         "type":"string",
-                         "value":"Welcome stranger!"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":0,
-                 "y":32
-                }, 
                 {
                  "gid":6,
                  "height":32,
@@ -85,7 +25,7 @@
                  "visible":true,
                  "width":32,
                  "x":0,
-                 "y":128
+                 "y":160
                 }, 
                 {
                  "gid":18,
@@ -97,7 +37,7 @@
                  "visible":true,
                  "width":32,
                  "x":64,
-                 "y":128
+                 "y":160
                 }, 
                 {
                  "gid":15,
@@ -109,7 +49,7 @@
                  "visible":true,
                  "width":32,
                  "x":32,
-                 "y":128
+                 "y":160
                 }, 
                 {
                  "gid":19,
@@ -121,31 +61,7 @@
                  "visible":true,
                  "width":32,
                  "x":96,
-                 "y":128
-                }, 
-                {
-                 "gid":20,
-                 "height":32,
-                 "id":49,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":64,
-                 "y":32
-                }, 
-                {
-                 "gid":2,
-                 "height":32,
-                 "id":50,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":64,
-                 "y":64
+                 "y":160
                 }, 
                 {
                  "gid":18,
@@ -157,7 +73,7 @@
                  "visible":true,
                  "width":32,
                  "x":96,
-                 "y":64
+                 "y":96
                 }, 
                 {
                  "gid":5,
@@ -169,19 +85,7 @@
                  "visible":true,
                  "width":32,
                  "x":96,
-                 "y":96
-                }, 
-                {
-                 "gid":2,
-                 "height":32,
-                 "id":54,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":0,
-                 "y":64
+                 "y":128
                 }, 
                 {
                  "gid":2,
@@ -193,7 +97,7 @@
                  "visible":true,
                  "width":32,
                  "x":0,
-                 "y":96
+                 "y":128
                 }, 
                 {
                  "gid":15,
@@ -205,12 +109,162 @@
                  "visible":true,
                  "width":32,
                  "x":32,
-                 "y":96
+                 "y":128
                 }, 
                 {
                  "gid":9,
                  "height":32,
                  "id":60,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"You completed the tutorial...\n\nWe will now leave you alone in the dungon. Try to escape!"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":128
+                }, 
+                {
+                 "gid":17,
+                 "height":32,
+                 "id":63,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"Welcome Stranger!\n\nYou just awoke here and can't remember who you are and where you are.\n\nFollow the path east to find out how this strange place behaves.\n\nTake the time and read the Safety Moment: Be aware of power sockets!"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
+                 "y":32
+                }, 
+                {
+                 "gid":18,
+                 "height":32,
+                 "id":64,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"Looks like the power cord of the toaster fits the power socket. Maybe you should try to plug the toaster into the socket... What might happen?!?"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":160,
+                 "y":32
+                }, 
+                {
+                 "gid":15,
+                 "height":32,
+                 "id":66,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"This room contains a chest. Look into it and take all items with you."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":32
+                }, 
+                {
+                 "gid":15,
+                 "height":32,
+                 "id":67,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"This room contains another chest. Look into it and take all items with you."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":32
+                }, 
+                {
+                 "gid":15,
+                 "height":32,
+                 "id":68,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"Looks like here is another kind of object in the room: a workbench. Have a look at the recipe and craft as many items as possible."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":32
+                }, 
+                {
+                 "gid":15,
+                 "height":32,
+                 "id":69,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"Ups, no more copper available for the toaster receipe. Maybe it is not wise to follow all instructions written here by the dungon developers... Use the \"Leave game\" button to start over again. When you reach the bronze workbench only craft one bronze and return to this room. Craft one toaster."
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":128,
+                 "y":32
+                }, 
+                {
+                 "gid":4,
+                 "height":32,
+                 "id":71,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
+                 "y":96
+                }, 
+                {
+                 "gid":18,
+                 "height":32,
+                 "id":73,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":96
+                }, 
+                {
+                 "gid":4,
+                 "height":32,
+                 "id":74,
                  "name":"",
                  "rotation":0,
                  "type":"",
@@ -244,7 +298,7 @@
                         {
                          "name":"quantity",
                          "type":"int",
-                         "value":10
+                         "value":3
                         }],
                  "rotation":0,
                  "type":"",
@@ -267,14 +321,14 @@
                         {
                          "name":"quantity",
                          "type":"int",
-                         "value":10
+                         "value":2
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":0,
-                 "y":64
+                 "x":64,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -296,7 +350,7 @@
                         {
                          "name":"destination",
                          "type":"object",
-                         "value":37
+                         "value":60
                         }, 
                         {
                          "name":"item",
@@ -312,8 +366,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":32,
-                 "y":64
+                 "x":160,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -341,8 +395,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":32,
-                 "y":64
+                 "x":128,
+                 "y":32
                 }, 
                 {
                  "gid":12,
@@ -359,8 +413,8 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":0,
-                 "y":64
+                 "x":96,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -384,18 +438,6 @@
                  "width":32,
                  "x":0,
                  "y":32
-                }, 
-                {
-                 "gid":22,
-                 "height":32,
-                 "id":39,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -404,7 +446,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":63,
+ "nextobjectid":75,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -704,5 +746,5 @@
  "tilewidth":32,
  "type":"map",
  "version":"1.6",
- "width":4
+ "width":6
 }

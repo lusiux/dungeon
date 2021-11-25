@@ -8,9 +8,9 @@
 </script>
 
 <h1>Room</h1>
-<h5>id: {$gameStore.roomId}</h5>
+<h6>id: {$gameStore.roomId}</h6>
 {#if $roomStore.description}
-  <p>{$roomStore.description}</p>
+  <p>{@html ($roomStore.description).replaceAll("\n", "<br>")}</p>
 {/if}
 <div>
   <Doors />
