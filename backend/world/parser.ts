@@ -58,7 +58,25 @@ async function run (): Promise<void> {
   const workbenchLayer = parsed.layers.find(layer => layer.name === 'Workbench')
   parseWorkbenches(workbenchLayer?.objects as LayerObject[], parsedRooms)
 
-  console.log(JSON.stringify({ rooms, start: roomIdLookupTable['0x0'] }))
+  const spawnLayer = parsed.layers.find(layer => layer.name === 'Spawn')
+  const spawnRoomId = parseSpawnPoint(spawnLayer?.objects as LayerObject[], parsedRooms)
+
+  console.log(JSON.stringify({ rooms, start: spawnRoomId }))
+}
+
+function parseSpawnPoint (objects: LayerObject[], rooms: Room[]): string {
+  if (objects.length !== 1) {
+    throw new Error('No or more than one spawnpoint present on Spawn layer')
+  }
+
+  const { x, y } = parseCoordinates(objects[0])
+  const spawnRoomId = roomIdLookupTable[`${x}x${y}`]
+
+  if (spawnRoomId === undefined) {
+    throw new Error(`No room found for spawnpoint at ${x}x${y}`)
+  }
+
+  return spawnRoomId
 }
 
 function updateDoors (rooms: Room[]): void {

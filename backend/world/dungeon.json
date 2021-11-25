@@ -371,7 +371,7 @@
         {
          "draworder":"topdown",
          "id":7,
-         "name":"Spawn \/ End",
+         "name":"Spawn",
          "objects":[
                 {
                  "gid":21,
