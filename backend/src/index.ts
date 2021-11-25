@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 import * as bodyParser from 'body-parser'
 import clone from 'clone'
-import { getChest, getSocket, getWorkbench, Room } from '../types'
+import { getChest, getSocket, getWorkbench, Room } from './types'
 import { Game } from './Game'
 
 const app = express()

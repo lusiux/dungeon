@@ -1,4 +1,4 @@
-import { Room } from '../types'
+import { Room } from './types'
 import { Inventory } from './Inventory'
 import { v4 as uuid } from 'uuid'
 import clone from 'clone'
