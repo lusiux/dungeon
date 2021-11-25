@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises'
 import path from 'path'
 import { v4 as uuid } from 'uuid'
 
-import { Room, Workbench } from '../types'
+import { Room, Workbench } from '../src/types'
 
 interface Tile {
   id: number
