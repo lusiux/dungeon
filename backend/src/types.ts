@@ -3,6 +3,10 @@ export interface Item {
   quantity: number
 }
 
+export interface Inventory {
+  inventory: Item[]
+}
+
 export interface Doors {
   north?: string
   east?: string
@@ -31,6 +35,11 @@ export interface Room {
   workbench?: Workbench
   chest?: Chest
   socket?: Socket
+}
+
+export interface GameState {
+  id: string
+  roomId: string
 }
 
 export function getWorkbench (room: Room): Workbench {
