@@ -19,41 +19,53 @@
 </script>
 
 {#if $gameStore.id === ""}
-	<div class="main">
-		<div class="start">
-			<div>Enter your name to start the game</div>
-			<div><input type="text" bind:value={nickName} placeholder="Nickname" /></div>
-			<button disabled={nickName === undefined || nickName === ""}  on:click={startNewGame}>Start new game</button>
-		</div>
-		<div class="resume">
-				<h3>Resume existing game</h3>
-				id: <input type="text" bind:value={newGameId} />
-				<button disabled={newGameId === undefined || newGameId === ""} on:click={resumeExistingGame}>
-					Resume game
-				</button>
-		</div>
-	</div>
-	<HallOfFame />
+	<main>
+		<h1>Welcome!</h1>
+
+		<div>Enter your name to start the game</div>
+		<input type="text" bind:value={nickName} placeholder="Nickname" />
+		<button disabled={nickName === undefined || nickName === ""} on:click={startNewGame}>Start new game</button>
+
+		<h3>Resume existing game</h3>
+
+		<input type="text" placeholder="id" bind:value={newGameId} />
+
+		<button disabled={newGameId === undefined || newGameId === ""} on:click={resumeExistingGame}>
+			Resume game
+		</button>
+
+		<HallOfFame />
+	</main>
 {:else}
 	<Game />
 {/if}
 
-<style>
-	div.main {
-		margin: auto;
-		width: 30%;
-		height: 300px;
+<style type="text/scss">
+	main {
+		border: 1px solid red;
+		margin: 0 auto;
+		width: 40%;
 		max-width: 1024px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
+		text-align: center;
 	}
 
-	div.main > div {
-		margin: 1rem;
-		text-align: center;
-		border: 2px solid black;
-		padding: 1.5rem;
+	h1 {
+		margin: 3rem 0;
 	}
+
+	h3 {
+		margin-top: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	input {
+		padding: 1rem;
+		margin-bottom: 1rem;
+		width: 100%;
+	}
+
+	button {
+		margin-bottom: 1rem;
+	}
+
 </style>
