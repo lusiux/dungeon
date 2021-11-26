@@ -14,7 +14,7 @@
 </style>
 
 <div class="control-container">
-  <h2>Doors</h2>
+  <h1>Doors</h1>
   <div class="buttons">
     <div>
       <button disabled={$roomStore.doors.north === undefined} on:click={() => moveToRoom($roomStore.doors.north)}>North</button>
