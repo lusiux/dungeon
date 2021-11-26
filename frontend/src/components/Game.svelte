@@ -1,6 +1,7 @@
 <script lang="ts">
   import Inventory from "./Inventory.svelte";
   import Room from "./Room.svelte";
+  import Doors from "./Doors.svelte";
 
   import roomStore from "../stores/Room";
   import gameStore from "../stores/Game";
@@ -12,38 +13,61 @@
   let revealCompleteId = false
 </script>
 
-{#if gameId !== ""}
-  <div>
-    <h1>Game</h1>
-    <div class="game-id" on:click={() => revealCompleteId = true}> 
-      {#if revealCompleteId}
-        Game-Id: {gameId}
-      {:else}
-        Game-Id: {shortGameId}... (click to reveal)
-      {/if}
+<main>
+  {#if $gameStore.id !== ""}
+    <div class="box game">
+      <h1>Game</h1>
+
+      <div class="game-id" on:click={() => revealCompleteId = !revealCompleteId}> 
+        {#if revealCompleteId}
+          Game-Id: {gameId} (click to hide)
+        {:else}
+          Game-Id: {shortGameId}... (click to reveal)
+        {/if}
+      </div>
+
+      <button on:click={leaveGame}>Leave game</button>
     </div>
 
-    <button on:click={leaveGame}>Leave game</button>
-  </div>
-  <div>
-    {#if $roomStore !== undefined}
-      <Room />
-    {/if}
-    <h1>Player</h1>
-    <Inventory />
-  </div>
-{/if}
+    <div class="details">
+      <div class="box player">
+        <h1>Player</h1>
+        <Inventory />
+      </div>
 
-<style>
+      <div class="box doors">
+          <Doors />
+      </div>
+
+      {#if $roomStore !== undefined}
+        <div class="box room">
+          <Room />
+        </div>
+      {/if}
+    </div>
+  {/if}
+</main>
+
+<style lang="scss">
   .game-id {
     cursor: pointer;
   }
 
-  div {
-    max-width: 1024px;
-  }
+  .details {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 
-  :global(div.control-container) {
-    margin-right: 1.3rem;
+    .player {
+      width: 20%;
+    }
+
+    .doors {
+      width: 25%;
+    }
+
+    .room {
+      width: 55%;
+    }
   }
 </style>

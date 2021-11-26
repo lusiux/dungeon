@@ -5,11 +5,14 @@
 </script>
 
 {#if $workbenchStore !== undefined}
-  <div class="control-container">
-    <h3>Workbench</h3>
-    <Recipe inputs={$workbenchStore.inputs} output={$workbenchStore.output} />
+  <h3>Workbench</h3>
+  <Recipe inputs={$workbenchStore.inputs} output={$workbenchStore.output} />
+
+  {#if $workbenchStore.craftable}  
     <button disabled={!$workbenchStore.craftable} on:click={craftItem}>
       Craft!
     </button>
-  </div>
+  {:else}
+    <div class="sorry-man">Insufficent inventory! :(</div>
+  {/if}
 {/if}

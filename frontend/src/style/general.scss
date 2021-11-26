@@ -1,3 +1,5 @@
+@import './vars.scss';
+
 html {
     min-height: 100%;
     font-size: 22px;
@@ -6,13 +8,20 @@ html {
 }
 
 body, h1, h2, h3, h4, h5, button, p, input {
+    background-color: $col-bg;
+
     margin: 0em;
     font-family: 'Press Start 2P', cursive;
     font-weight: 300;
 }
 
+h1, h2, h3, h4, h5 {
+    margin-bottom: 1rem;
+    color: $col-hl;    
+}
+
 body {
-    
+    color: $col-text;
 }
 
 header {
@@ -26,4 +35,28 @@ main {
 button {
     padding: 1rem;
     font-size: 0.8rem;
+    color: $col-text;
+
+    border: 0.6rem solid $col-dark-brown;
+
+    &[disabled] {
+        border: 0.6rem solid $col-med-grey;
+        color: $col-med-grey;
+    }
+}
+
+input {
+    border: 0.6rem solid $col-dark-brown;
+    color: $col-text;   
+}
+
+.box {
+    border: 0.6rem solid $col-dark-brown;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.sorry-man {
+    font-style: italic;
+    padding-left: 2rem;
 }
