@@ -37,3 +37,10 @@ export interface Game {
   id: string
   roomId: string
 }
+
+export interface HallOfFameEntry {
+  nickName: string
+  time: number
+  actions: number
+  plugs: number
+}

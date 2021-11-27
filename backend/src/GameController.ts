@@ -6,8 +6,8 @@ import validator from 'validator'
 const games: Game[] = []
 
 const GameController = {
-  startNewGame: async (world: any): Promise<GameState> => {
-    const game = new Game(clone(world.rooms), world.start)
+  startNewGame: async (world: any, nickName: string): Promise<GameState> => {
+    const game = new Game(clone(world.rooms), world.start, nickName)
     games.push(game)
     await game.persist()
 

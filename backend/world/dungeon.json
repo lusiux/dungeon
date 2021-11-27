@@ -293,12 +293,12 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"Copper"
+                         "value":"Toaster"
                         }, 
                         {
                          "name":"quantity",
                          "type":"int",
-                         "value":3
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
@@ -316,18 +316,64 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"Tin"
+                         "value":"Toaster"
                         }, 
                         {
                          "name":"quantity",
                          "type":"int",
-                         "value":2
+                         "value":1
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
                  "x":64,
+                 "y":32
+                }, 
+                {
+                 "gid":13,
+                 "height":32,
+                 "id":83,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Toaster"
+                        }, 
+                        {
+                         "name":"quantity",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":32
+                }, 
+                {
+                 "gid":13,
+                 "height":32,
+                 "id":84,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Toaster"
+                        }, 
+                        {
+                         "name":"quantity",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":128,
                  "y":32
                 }],
          "opacity":1,
@@ -344,13 +390,13 @@
                 {
                  "gid":14,
                  "height":32,
-                 "id":28,
+                 "id":78,
                  "name":"",
                  "properties":[
                         {
                          "name":"destination",
                          "type":"object",
-                         "value":60
+                         "value":67
                         }, 
                         {
                          "name":"item",
@@ -366,7 +412,91 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":160,
+                 "x":32,
+                 "y":32
+                }, 
+                {
+                 "gid":14,
+                 "height":32,
+                 "id":79,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"object",
+                         "value":68
+                        }, 
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"Toaster"
+                        }, 
+                        {
+                         "name":"quantity",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":32
+                }, 
+                {
+                 "gid":14,
+                 "height":32,
+                 "id":80,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"object",
+                         "value":69
+                        }, 
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"Toaster"
+                        }, 
+                        {
+                         "name":"quantity",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":32
+                }, 
+                {
+                 "gid":14,
+                 "height":32,
+                 "id":81,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"object",
+                         "value":64
+                        }, 
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"Toaster"
+                        }, 
+                        {
+                         "name":"quantity",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":128,
                  "y":32
                 }],
          "opacity":1,
@@ -379,43 +509,7 @@
          "draworder":"topdown",
          "id":6,
          "name":"Workbench",
-         "objects":[
-                {
-                 "gid":12,
-                 "height":32,
-                 "id":36,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"recipe",
-                         "type":"string",
-                         "value":"Toaster"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":128,
-                 "y":32
-                }, 
-                {
-                 "gid":12,
-                 "height":32,
-                 "id":61,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"recipe",
-                         "type":"string",
-                         "value":"Bronze"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":32
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -446,7 +540,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":75,
+ "nextobjectid":85,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
