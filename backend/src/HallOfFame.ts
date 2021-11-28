@@ -1,3 +1,6 @@
+import { plainToInstance } from 'class-transformer'
+import { readFileSync } from 'fs'
+import { writeFile } from 'fs/promises'
 import { Game } from './Game'
 
 export interface HallOfFameEntry {
@@ -6,6 +9,8 @@ export interface HallOfFameEntry {
   actions: number
   plugs: number
 }
+
+const filename = 'games/hall-of-fame.json'
 
 export default class HallOfFame {
   private readonly entries: HallOfFameEntry[] = []
@@ -20,6 +25,18 @@ export default class HallOfFame {
     }
 
     this.entries.push(entry)
+    await this.persist()
+  }
+
+  static fromFile (): HallOfFame {
+    const fileContent = readFileSync(filename)
+    const hofJson = JSON.parse(fileContent.toString())
+
+    return plainToInstance(HallOfFame, hofJson)
+  }
+
+  public async persist (): Promise<void> {
+    await writeFile(filename, JSON.stringify(this))
   }
 
   public async getEntries (): Promise<HallOfFameEntry[]> {
