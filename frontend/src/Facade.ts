@@ -88,6 +88,22 @@ async function getHallOfFame (): Promise<HallOfFameEntry[]> {
 
 export async function updateHallOfFame (): Promise<void> {
   const hofEntries = await getHallOfFame()
+
+  hofEntries.sort((a: HallOfFameEntry, b: HallOfFameEntry): number => {
+    if (a.plugs > b.plugs) return -1
+    if (a.plugs < b.plugs) return 1
+
+    if (a.time > b.time) return 1
+    if (a.time < b.time) return -1
+
+    if (a.actions > b.actions) return -1
+    if (a.actions < b.actions) return 1
+
+    return 0
+  })
+
+  hofEntries.splice(30)
+
   hofStore.set(hofEntries)
 }
 

@@ -2,13 +2,13 @@
   import hofStore from "../stores/HallOfFame";
 </script>
 
-<h1>Hall of fame</h1>
+<h1>Hall of Fame</h1>
 <table>
   <tr>
   <th>Nick</th>
   <th>Items plugged</th>
   <th>Actions performed</th>
-  <th>Time elapsed [m]</th>
+  <th>Time elapsed [minutes]</th>
 </tr>
   {#each $hofStore as entry}
     <tr>
