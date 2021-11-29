@@ -15,7 +15,7 @@ html {
 
 @media (min-width: $breakpoint-big) {
     html {
-        font-size: 18px;
+        font-size: 20px;
     }
 }
 
@@ -53,7 +53,7 @@ header {
 }
 
 main {
-
+    max-width: $breakpoint-big;
 }
 
 button {

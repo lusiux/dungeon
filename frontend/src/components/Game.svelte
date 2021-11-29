@@ -72,4 +72,8 @@
       }
     }
   }
+
+  .game-id {
+    cursor: pointer;
+  }
 </style>
