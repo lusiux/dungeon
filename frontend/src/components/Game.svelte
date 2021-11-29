@@ -1,6 +1,8 @@
 <script lang="ts">
   import Inventory from "./Inventory.svelte";
   import Room from "./Room.svelte";
+  import Doors from "./Doors.svelte";
+  import Debug from "./Debug.svelte";
 
   import roomStore from "../stores/Room";
   import gameStore from "../stores/Game";
@@ -12,38 +14,78 @@
   let revealCompleteId = false
 </script>
 
-{#if gameId !== ""}
-  <div>
-    <h1>Game</h1>
-    <div class="game-id" on:click={() => revealCompleteId = true}> 
-      {#if revealCompleteId}
-        Game-Id: {gameId}
-      {:else}
-        Game-Id: {shortGameId}... (click to reveal)
-      {/if}
+<Debug />
+
+<main>
+  {#if $gameStore.id !== ""}
+    <div class="box game">
+      <div class="game-id" on:click={() => revealCompleteId = !revealCompleteId}> 
+        <h1>Game</h1>
+
+        {#if revealCompleteId}
+          Game-Id: {gameId} (click to hide)
+        {:else}
+          Game-Id: {shortGameId}... (click to reveal)
+        {/if}
+      </div>
+
+      <button on:click={leaveGame}>Leave game</button>
     </div>
 
-    <button on:click={leaveGame}>Leave game</button>
-  </div>
-  <div>
-    {#if $roomStore !== undefined}
-      <Room />
-    {/if}
-    <h1>Player</h1>
-    <Inventory />
-  </div>
-{/if}
+    <div class="details">
+      {#if $roomStore !== undefined}
+        <div class="box room">
+          <Room />
+        </div>
+      {/if}
 
-<style>
+      <div class="doors-inventory">
+        <div class="box">
+            <Doors />
+        </div>
+        <div class="box">
+          <Inventory />
+        </div>
+      </div>
+
+    </div>
+  {/if}
+</main>
+
+<style lang="scss">
+  @import "../style/vars.scss";
+
+  .details {
+    @media (min-width: $breakpoint-medium) {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+
+      .room {
+        width: 60%;
+      }
+
+      .doors-inventory {
+        width: 40%;
+      }
+    }
+  }
+
   .game-id {
     cursor: pointer;
   }
 
-  div {
-    max-width: 1024px;
-  }
+  .game {
+    display: flex;
 
-  :global(div.control-container) {
-    margin-right: 1.3rem;
+    .game-id {
+      flex-grow: 1;
+    }
+
+    button {
+      white-space: nowrap;
+      width: 13rem;
+      min-width: 13rem;
+    }
   }
 </style>

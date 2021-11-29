@@ -5,29 +5,27 @@
   export let output: Item;
 </script>
 
-<div>
-  <h4>Recipe</h4>
-  <h5>Ingredients</h5>
-  <ul>
-    {#each inputs as item}
-      <li>{item.quantity}x {item.name}</li>
-    {/each}
-  </ul>
-  <h5>Output</h5>
-  <ul>
-    <li>
-      {output.quantity}x {output.name}
-    </li>
-  </ul>
-</div>
+<h5>Ingredients</h5>
+<ul>
+  {#each inputs as item}
+    <li>{item.quantity}x {item.name}</li>
+  {/each}
+</ul>
+
+<h5>Output</h5>
+<ul>
+  <li>
+    {output.quantity}x {output.name}
+  </li>
+</ul>
 
 <style>
-  h4,
   h5 {
     margin-bottom: 0.3rem;
     margin-top: 0;
   }
+
   ul {
-    margin: 0;
+    margin: 1rem 1rem;
   }
 </style>

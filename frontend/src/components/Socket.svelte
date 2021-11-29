@@ -4,9 +4,18 @@
 </script>
 
 {#if $socketStore !== undefined}
-<div class="control-container">
   <h3>Power socket</h3>
   <p>Plug {$socketStore.item.quantity} {$socketStore.item.name} here</p>
-  <button disabled={! $socketStore.pluggable} on:click={plugItem}>Plug</button>
-</div>
+
+  {#if $socketStore.pluggable}
+    <button on:click={plugItem}>Plug</button>
+  {:else}
+    <div class="sorry-man">No fitting item :(</div>
+  {/if}
 {/if}
+
+<style>
+  p {
+    margin: 1.2rem 0;
+  }
+</style>

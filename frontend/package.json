@@ -5,6 +5,7 @@
     "test": "web-test-runner \"src/**/*.test.ts\""
   },
   "dependencies": {
+    "@snowpack/plugin-sass": "^1.4.0",
     "svelte": "^3.37.0",
     "the-new-css-reset": "^1.4.0"
   },

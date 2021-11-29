@@ -4,11 +4,25 @@
 </script>
 
 {#if $roomStore.chest !== undefined}
-<div class="control-container">
   <h3>Chest</h3>
-  <div>Contains {$roomStore.chest.item.quantity} {$roomStore.chest.item.name}</div>
-  <button disabled={$roomStore.chest.item.quantity === 0} on:click={pickChest}>
-    Pick 1 item
-  </button>
-</div>
+
+  {#if $roomStore.chest.item.quantity > 0}
+    <p>Contains {$roomStore.chest.item.quantity} {$roomStore.chest.item.name}</p>
+
+    <button on:click={pickChest}>
+      Pick 1 item
+    </button>
+  {:else}
+    <div class="sorry-man">It's empty :(</div>
+  {/if}
 {/if}
+
+<style>
+  p {
+    margin: 1.2rem 0;
+  }
+
+  button {
+    margin: 0 auto;
+  }
+</style>
