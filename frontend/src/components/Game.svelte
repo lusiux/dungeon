@@ -33,20 +33,19 @@
     </div>
 
     <div class="details">
-      <div class="box player">
-        <h1>Player</h1>
-        <Inventory />
-      </div>
-
-      <div class="box doors">
-          <Doors />
-      </div>
-
       {#if $roomStore !== undefined}
         <div class="box room">
           <Room />
         </div>
       {/if}
+
+      <div class="box doors">
+          <Doors />
+      </div>
+
+      <div class="box player">
+        <Inventory />
+      </div>
     </div>
   {/if}
 </main>
