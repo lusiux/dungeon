@@ -2,6 +2,7 @@
   import Inventory from "./Inventory.svelte";
   import Room from "./Room.svelte";
   import Doors from "./Doors.svelte";
+  import Debug from "./Debug.svelte";
 
   import roomStore from "../stores/Room";
   import gameStore from "../stores/Game";
@@ -12,6 +13,8 @@
 
   let revealCompleteId = false
 </script>
+
+<Debug />
 
 <main>
   {#if $gameStore.id !== ""}
