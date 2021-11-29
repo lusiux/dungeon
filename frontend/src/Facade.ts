@@ -4,6 +4,15 @@ import inventoryStore, { reset as resetInventoryStore } from './stores/Inventory
 import gameStore, { getGameId, getRoomId } from './stores/Game'
 import hofStore from './stores/HallOfFame'
 
+export async function initiate() {
+  const gameId = getGameId() // from local storage
+  if (gameId === '') {
+    return
+  }
+
+  await startUp()
+}
+
 async function updateRoom (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
