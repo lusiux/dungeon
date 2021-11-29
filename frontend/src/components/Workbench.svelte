@@ -9,7 +9,7 @@
   <Recipe inputs={$workbenchStore.inputs} output={$workbenchStore.output} />
 
   {#if $workbenchStore.craftable}  
-    <button disabled={!$workbenchStore.craftable} on:click={craftItem}>
+    <button on:click={craftItem}>
       Craft!
     </button>
   {:else}

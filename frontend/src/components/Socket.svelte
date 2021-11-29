@@ -8,7 +8,7 @@
   <p>Plug {$socketStore.item.quantity} {$socketStore.item.name} here</p>
 
   {#if $socketStore.pluggable}
-    <button disabled={!$socketStore.pluggable} on:click={plugItem}>Plug</button>
+    <button on:click={plugItem}>Plug</button>
   {:else}
     <div class="sorry-man">No fitting item :(</div>
   {/if}

@@ -9,7 +9,7 @@
   {#if $roomStore.chest.item.quantity > 0}
     <p>Contains {$roomStore.chest.item.quantity} {$roomStore.chest.item.name}</p>
 
-    <button disabled={$roomStore.chest.item.quantity === 0} on:click={pickChest}>
+    <button on:click={pickChest}>
       Pick 1 item
     </button>
   {:else}
