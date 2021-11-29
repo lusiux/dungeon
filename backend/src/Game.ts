@@ -4,15 +4,40 @@ import { v4 as uuid } from 'uuid'
 import clone from 'clone'
 import { writeFile, readFile } from 'fs/promises'
 import { plainToInstance } from 'class-transformer'
+
+export interface GameStats {
+  plugs: number
+  actions: number
+  nickName: string
+  id: string
+  started: number
+}
+
 export class Game {
   private inventory: Inventory
   private readonly id: string
   private readonly rooms: Record<string, Room>
+  private readonly started: number
+  private plugs: number
+  private actions: number
 
-  constructor (rooms: Record<string, Room>, private currentRoomId: string) {
+  public getStats (): GameStats {
+    return {
+      plugs: this.plugs,
+      actions: this.actions,
+      nickName: this.nickName,
+      id: this.id,
+      started: this.started
+    }
+  }
+
+  constructor (rooms: Record<string, Room>, private currentRoomId: string, private readonly nickName: string) {
     this.rooms = clone(rooms)
     this.id = uuid()
     this.inventory = new Inventory()
+    this.started = Date.now()
+    this.plugs = 0
+    this.actions = 0
   }
 
   private setInventory (inventory: Inventory): void {
@@ -60,6 +85,9 @@ export class Game {
 
   public async moveToRoom (roomId: string): Promise<Room> {
     const room: Room = clone(this.getRoom(roomId))
+    if (this.currentRoomId !== roomId) {
+      this.actions += 1
+    }
     await this.updateCurrentRoom(roomId)
 
     if (room.socket !== undefined) {
@@ -82,6 +110,7 @@ export class Game {
       chest.item.quantity -= 1
     }
 
+    this.actions += 1
     await this.persist()
 
     return { inventory: this.inventory.getItems() }
@@ -94,6 +123,7 @@ export class Game {
     this.inventory.removeItemsOrThrow(workbench.inputs)
     this.inventory.addItem(workbench.output)
 
+    this.actions += 1
     await this.persist()
     return { inventory: this.inventory.getItems() }
   }
@@ -104,6 +134,8 @@ export class Game {
 
     this.inventory.removeItemOrThrow(socket.item)
 
+    this.actions += 1
+    this.plugs += 1
     await this.persist()
     return { id: socket.targetRoom }
   }

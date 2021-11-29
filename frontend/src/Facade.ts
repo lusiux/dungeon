@@ -1,12 +1,13 @@
-import type { Game, Room } from './types'
+import type { Game, HallOfFameEntry, Room } from './types'
 import roomStore, { reset as resetRoomStore } from './stores/Room'
 import inventoryStore, { reset as resetInventoryStore } from './stores/Inventory'
 import gameStore, { getGameId, getRoomId } from './stores/Game'
+import hofStore from './stores/HallOfFame'
 
 async function updateRoom (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
-  const room: Room = await (await fetch(`/api/game/${gameId}/room/${roomId}`)).json()
+  const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
 }
 
@@ -15,7 +16,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
     return
   }
   const gameId = getGameId()
-  const room: Room = await (await fetch(`/api/game/${gameId}/room/${roomId}`)).json()
+  const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
   gameStore.set({ id: gameId, roomId })
 }
@@ -23,7 +24,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
 export async function pickChest (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
-  const { inventory } = await (await fetch(`/api/game/${gameId}/room/${roomId}/pickChest`, { method: 'POST' })).json()
+  const { inventory } = await _post<any>(`/api/game/${gameId}/room/${roomId}/pickChest`)
   await updateRoom()
   inventoryStore.set(inventory)
 }
@@ -31,31 +32,31 @@ export async function pickChest (): Promise<void> {
 export async function craftItem (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
-  const { inventory } = await (await fetch(`/api/game/${gameId}/room/${roomId}/craft`, { method: 'POST' })).json()
+  const { inventory } = await _post<any>(`/api/game/${gameId}/room/${roomId}/craft`)
   inventoryStore.set(inventory)
 }
 
 async function updateInventory (): Promise<void> {
   const gameId = getGameId()
-  const { inventory } = await (await fetch(`/api/game/${gameId}/inventory`)).json()
+  const { inventory } = await _get<any>(`/api/game/${gameId}/inventory`)
   inventoryStore.set(inventory)
 }
 
-export async function newGame (): Promise<void> {
-  const { id, roomId } = await (await fetch('/api/game', { method: 'POST' })).json()
+export async function newGame (nickname: string): Promise<void> {
+  const { id, roomId } = await _post<any>('/api/game', { nickname })
   gameStore.set({ id, roomId })
 
   await startUp()
 }
 
 async function getGame (id: string): Promise<Game> {
-  return await (await fetch(`/api/game/${id}`)).json()
+  return await _get<Game>(`/api/game/${id}`)
 }
 
 export async function plugItem (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
-  const { id } = await (await fetch(`/api/game/${gameId}/room/${roomId}/plug`, { method: 'POST' })).json()
+  const { id } = await _post<any>(`/api/game/${gameId}/room/${roomId}/plug`)
   await updateInventory()
   await moveToRoom(id)
 }
@@ -70,11 +71,66 @@ export async function resumeGame (gameId: string): Promise<void> {
 export async function startUp (): Promise<void> {
   await updateRoom()
   await updateInventory()
+  await updateHallOfFame()
 }
 
 export async function leaveGame (): Promise<void> {
   resetRoomStore()
   resetInventoryStore()
+  await updateHallOfFame()
 
   gameStore.set({ id: '', roomId: '' })
+}
+
+async function getHallOfFame (): Promise<HallOfFameEntry[]> {
+  return await _get<HallOfFameEntry[]>('/api/halloffame')
+}
+
+export async function updateHallOfFame (): Promise<void> {
+  const hofEntries = await getHallOfFame()
+
+  hofEntries.sort((a: HallOfFameEntry, b: HallOfFameEntry): number => {
+    if ( a.plugs !== b.plugs ) {
+      return b.plugs - a.plugs
+    }
+
+    if ( a.time !== b.time ) {
+      return a.time - b.time
+    }
+
+    return a.actions - b.actions
+  })
+
+  hofEntries.splice(30)
+
+  hofStore.set(hofEntries)
+}
+
+async function _get<T> (url: string): Promise<T> {
+  const response = await fetch(url)
+
+  if (!response.ok) {
+    throw new Error(await response.text())
+  }
+
+  return await response.json()
+}
+
+async function _post<T> (url: string, body?: any): Promise<T> {
+  const requestOptions = {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }
+
+  const response = await fetch(url, requestOptions)
+
+  if (!response.ok) {
+    throw new Error(await response.text())
+  }
+
+  return await response.json()
 }

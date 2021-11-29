@@ -1,12 +1,15 @@
 /// <reference types="svelte" />
 
 import App from './components/App.svelte'
+import { updateHallOfFame } from './Facade'
 
 const app = new App({
   target: document.body
 })
 
 export default app
+
+updateHallOfFame()
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
