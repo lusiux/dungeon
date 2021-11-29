@@ -3,13 +3,22 @@
   import roomStore from "../stores/Room"
 </script>
 
-<style>
+<style type="text/scss">
+  @import '../style/vars.scss';
+
   .buttons div {
     text-align: center;
   }
 
-  .buttons button {
+  button {
     margin: 0.4rem;
+    width: 12rem;
+    min-width: 12rem;
+
+    @media (min-width: $breakpoint-medium) {
+        width: 7rem;
+        min-width: 7rem;
+    }
   }
 
   div {

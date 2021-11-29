@@ -60,6 +60,8 @@ button {
     padding: 0.8rem;
     font-size: 0.8rem;
     color: $col-text;
+    min-width: 18rem;
+    height: 3.5rem;
 
     border: 0.25rem solid $col-dark-brown;
 
@@ -72,6 +74,10 @@ button {
 input {
     border: 0.25rem solid $col-dark-brown;
     color: $col-text;   
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .box {
