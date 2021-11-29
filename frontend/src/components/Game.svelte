@@ -19,9 +19,9 @@
 <main>
   {#if $gameStore.id !== ""}
     <div class="box game">
-      <h1>Game</h1>
-
       <div class="game-id" on:click={() => revealCompleteId = !revealCompleteId}> 
+        <h1>Game</h1>
+
         {#if revealCompleteId}
           Game-Id: {gameId} (click to hide)
         {:else}
@@ -73,5 +73,17 @@
 
   .game-id {
     cursor: pointer;
+  }
+
+  .game {
+    display: flex;
+
+    .game-id {
+      flex-grow: 1;
+    }
+
+    button {
+      white-space: nowrap;
+    }
   }
 </style>
