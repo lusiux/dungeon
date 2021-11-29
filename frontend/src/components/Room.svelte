@@ -6,8 +6,8 @@
   import gameStore from "../stores/Game";
 </script>
 
-<h1>Room</h1>
-<h6>id: {$gameStore.roomId.substr(0, 4)}</h6>
+<h1>Room<span>(id: {$gameStore.roomId.substr(0, 4)})</span></h1>
+
 
 {#if $roomStore.description}
   <p>{@html ($roomStore.description).replaceAll("\n", "<br>")}</p>
@@ -36,5 +36,10 @@
 
   p {
     margin: 1.2rem 0;
+  }
+
+  span {
+    font-size: 13px;
+    padding-left: 0.4rem;
   }
 </style>

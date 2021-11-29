@@ -73,6 +73,7 @@
 
   .game-id {
     cursor: pointer;
+    font-size: 13px;
   }
 
   .game {
