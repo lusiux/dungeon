@@ -84,6 +84,8 @@
 
     button {
       white-space: nowrap;
+      width: 13rem;
+      min-width: 13rem;
     }
   }
 </style>

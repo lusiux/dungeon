@@ -5,8 +5,6 @@
   export let output: Item;
 </script>
 
-<h4>Recipe</h4>
-
 <h5>Ingredients</h5>
 <ul>
   {#each inputs as item}
@@ -22,7 +20,7 @@
 </ul>
 
 <style>
-  h4, h5 {
+  h5 {
     margin-bottom: 0.3rem;
     margin-top: 0;
   }

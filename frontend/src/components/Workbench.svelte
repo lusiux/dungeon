@@ -13,6 +13,6 @@
       Craft!
     </button>
   {:else}
-    <div class="sorry-man">Insufficent inventory! :(</div>
+    <div class="sorry-man">Ingredients missing! :(</div>
   {/if}
 {/if}
