@@ -22,11 +22,12 @@ function asyncWrapper<T> (handler: (req?: Request, res?: Response, next?: NextFu
   }
 }
 
-let hof: HallOfFame = new HallOfFame()
+let hof: HallOfFame
 try {
   hof = HallOfFame.fromFile()
 } catch (e) {
   console.log(e)
+  hof = new HallOfFame()
 }
 
 app.use(cors())
