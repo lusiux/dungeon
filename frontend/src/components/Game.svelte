@@ -39,13 +39,15 @@
         </div>
       {/if}
 
-      <div class="box doors">
-          <Doors />
+      <div class="doors-inventory">
+        <div class="box">
+            <Doors />
+        </div>
+        <div class="box">
+          <Inventory />
+        </div>
       </div>
 
-      <div class="box player">
-        <Inventory />
-      </div>
     </div>
   {/if}
 </main>
@@ -59,16 +61,12 @@
       flex-direction: row;
       width: 100%;
 
-      .player {
-        width: 25%;
-      }
-
-      .doors {
-        width: 30%;
-      }
-
       .room {
-        width: 45%;
+        width: 60%;
+      }
+
+      .doors-inventory {
+        width: 40%;
       }
     }
   }
