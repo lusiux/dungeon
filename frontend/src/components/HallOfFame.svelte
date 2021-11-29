@@ -2,7 +2,7 @@
   import hofStore from "../stores/HallOfFame";
 </script>
 
-<h1>Hall of Fame</h1>
+<h3>Hall of Fame</h3>
 <table>
   <tr>
   <th>Nick</th>
@@ -21,6 +21,11 @@
 </table>
 
 <style>
+	h3 {
+		margin-top: 3rem;
+		margin-bottom: 1rem;
+	}
+
   td.right {
     text-align: right;
   }

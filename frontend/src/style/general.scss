@@ -2,9 +2,21 @@
 
 html {
     min-height: 100%;
-    font-size: 22px;
+    font-size: 14px;
 
     font-family: 'Press Start 2P', cursive;
+}
+
+@media (min-width: $breakpoint-medium) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: $breakpoint-big) {
+    html {
+        font-size: 18px;
+    }
 }
 
 body, h1, h2, h3, h4, h5, button, p, input {
@@ -18,6 +30,18 @@ body, h1, h2, h3, h4, h5, button, p, input {
 h1, h2, h3, h4, h5 {
     margin-bottom: 1rem;
     color: $col-hl;    
+}
+
+h1 {
+    font-size: 1.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+h3 {
+    font-size: 1.2rem;
 }
 
 body {

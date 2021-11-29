@@ -52,25 +52,25 @@
 </main>
 
 <style lang="scss">
-  .game-id {
-    cursor: pointer;
-  }
+  @import "../style/vars.scss";
 
   .details {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+    @media (min-width: $breakpoint-medium) {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
 
-    .player {
-      width: 20%;
-    }
+      .player {
+        width: 25%;
+      }
 
-    .doors {
-      width: 25%;
-    }
+      .doors {
+        width: 30%;
+      }
 
-    .room {
-      width: 55%;
+      .room {
+        width: 45%;
+      }
     }
   }
 </style>

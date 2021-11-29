@@ -20,7 +20,7 @@
 <main>
     <h1>Welcome!</h1>
 
-	<div>Enter your name to start the game</div>
+	<h3>Enter your name to start the game</h3>
 	<input type="text" bind:value={nickName} placeholder="Nickname" />
 	<button disabled={nickName === undefined || nickName === ""} on:click={startNewGame}>Start new game</button>
 
