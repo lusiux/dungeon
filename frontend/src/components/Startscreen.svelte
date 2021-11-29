@@ -31,9 +31,9 @@
     <button disabled={newGameId === undefined || newGameId === ""} on:click={resumeExistingGame}>
         Resume game
     </button>
-
-	<HallOfFame />
 </main>
+
+<HallOfFame />
 
 <style lang="scss">
 	main {
@@ -61,5 +61,4 @@
 	button {
 		margin-bottom: 1rem;
 	}
-
 </style>
