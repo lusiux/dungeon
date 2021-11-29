@@ -11,6 +11,10 @@
   .buttons button {
     margin: 0.4rem;
   }
+
+  div {
+    white-space: nowrap;
+  }
 </style>
 
 <div class="control-container">

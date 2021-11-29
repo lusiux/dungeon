@@ -19,6 +19,10 @@
 
 <style>
   p {
-    margin: 2rem 0;
+    margin: 1.2rem 0;
+  }
+
+  button {
+    margin: 0 auto;
   }
 </style>

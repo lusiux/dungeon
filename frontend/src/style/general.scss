@@ -57,27 +57,27 @@ main {
 }
 
 button {
-    padding: 1rem;
+    padding: 0.8rem;
     font-size: 0.8rem;
     color: $col-text;
 
-    border: 0.6rem solid $col-dark-brown;
+    border: 0.25rem solid $col-dark-brown;
 
     &[disabled] {
-        border: 0.6rem solid $col-med-grey;
+        border: 0.25rem solid $col-med-grey;
         color: $col-med-grey;
     }
 }
 
 input {
-    border: 0.6rem solid $col-dark-brown;
+    border: 0.25rem solid $col-dark-brown;
     color: $col-text;   
 }
 
 .box {
-    border: 0.6rem solid $col-dark-brown;
-    margin: 1rem;
-    padding: 1rem;
+    border: 0.4rem solid $col-dark-brown;
+    margin: 0.8rem;
+    padding: 0.6rem;
 }
 
 .sorry-man {

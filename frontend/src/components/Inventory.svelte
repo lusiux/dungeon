@@ -2,14 +2,23 @@
   import inventoryStore from "../stores/Inventory";
 </script>
 
-<!-- todo: show nothing if no inventory -->
+<style>
+  tr td:first-of-type, tr th:first-of-type {
+    text-align: right;
+    padding-right: 0.5rem;
+  }
 
-<h2>Inventory</h2>
+  th {
+    text-align: left;
+  }
+</style>
+
+<h1>Inventory</h1>
 {#if $inventoryStore.length > 0}
   <table>
     <tr>
-      <th>Item</th>
-      <th>Quantity</th>
+      <th>qty</th>
+      <th>item</th>
     </tr>
 
     {#each $inventoryStore as item}
