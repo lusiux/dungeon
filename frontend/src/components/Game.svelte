@@ -5,12 +5,24 @@
   import roomStore from "../stores/Room";
   import gameStore from "../stores/Game";
   import { leaveGame } from "../Facade";
+
+  $: gameId = $gameStore.id
+  $: shortGameId = gameId !== undefined ? gameId.substring(0, 4) : ''
+
+  let revealCompleteId = false
 </script>
 
-{#if $gameStore.id !== ""}
+{#if gameId !== ""}
   <div>
     <h1>Game</h1>
-    id: {$gameStore.id}
+    <div class="game-id" on:click={() => revealCompleteId = true}> 
+      {#if revealCompleteId}
+        Game-Id: {gameId}
+      {:else}
+        Game-Id: {shortGameId}... (click to reveal)
+      {/if}
+    </div>
+
     <button on:click={leaveGame}>Leave game</button>
   </div>
   <div>
@@ -23,6 +35,10 @@
 {/if}
 
 <style>
+  .game-id {
+    cursor: pointer;
+  }
+
   div {
     max-width: 1024px;
   }
