@@ -24,7 +24,13 @@ export default class HallOfFame {
       plugs: stats.plugs
     }
 
-    this.entries.push(entry)
+    const existingEntry = this.entries.find(hofEntry => hofEntry.nickName === entry.nickName)
+    if ( existingEntry !== undefined ) {
+      Object.assign(existingEntry, entry)
+    } else {
+      this.entries.push(entry)
+    }
+
     await this.persist()
   }
 
