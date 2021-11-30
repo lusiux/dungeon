@@ -2,9 +2,10 @@ import { readFile } from 'fs/promises'
 import path from 'path'
 import { v4 as uuid } from 'uuid'
 
-import { Item, Room, Workbench } from '../src/types'
-
 import Papa from 'papaparse'
+import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
+
+import { Item, Room, Workbench } from '../src/types'
 
 interface Tile {
   id: number
@@ -228,12 +229,25 @@ function parseWorkbenches (objects: LayerObject[], rooms: Room[]): void {
 const roomLookupTable: Record<string, Room> = {}
 const roomIdLookupTable: Record<string, string> = {}
 const rooms: Record<string, Room> = {}
+const mnemonicLookup: Record<string, boolean> = {}
 
 function parseRooms (objects: LayerObject[], tiles: ParsedTile[]): Room[] {
   return objects.map(object => {
     const tile = tiles.find(tile => tile.gid === object.gid)
     const { x, y, id } = parseCoordinates(object)
     const properties = listToRecord(object.properties)
+
+    const mnemonic: string = uniqueNamesGenerator({
+      separator: ' ',
+      dictionaries: [adjectives, animals]
+    });
+
+    if (mnemonicLookup[mnemonic] !== undefined) {
+      // this should never happen and I'm too lazy to make a loop to find a unique mnemonic
+      throw new Error(`mnemonic ${mnemonic} already exists`)
+    }
+
+    mnemonicLookup[mnemonic] = true
 
     const room = {
       doors: {
@@ -242,7 +256,8 @@ function parseRooms (objects: LayerObject[], tiles: ParsedTile[]): Room[] {
         south: tile?.properties?.south !== undefined ? `${x}x${y + 1}` : undefined,
         west: tile?.properties?.west !== undefined ? `${x - 1}x${y}` : undefined
       },
-      description: properties.description
+      description: properties.description,
+      mnemonic: mnemonic.toLowerCase()
     }
 
     const uid = uuid()
