@@ -4,6 +4,8 @@ services:
     image: backend
     build:
       context: backend/
+    volumes:
+      - "game-data:/app/games"
 
   frontend:
     image: frontend
@@ -11,4 +13,6 @@ services:
       context: frontend/
     ports:
       - 8000:80
-  
+
+volumes:
+  game-data:
