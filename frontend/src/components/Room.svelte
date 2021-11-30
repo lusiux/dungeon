@@ -6,7 +6,7 @@
   import gameStore from "../stores/Game";
 </script>
 
-<h1>Room<span>(id: {$gameStore.roomId.substr(0, 4)})</span></h1>
+<h1>Room<span>(id: {$gameStore.roomId.substr(0, 4)}, {$roomStore.mnemonic})</span></h1>
 
 
 {#if $roomStore.description}

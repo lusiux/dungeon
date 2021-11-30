@@ -30,6 +30,7 @@ export interface Socket {
 }
 
 export interface Room {
+  mnemonic?: string
   description?: string
   doors: Doors
   workbench?: Workbench
