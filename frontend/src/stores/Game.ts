@@ -1,5 +1,7 @@
-import { get, writable } from 'svelte/store'
-import type { Game } from 'src/types'
+import { get } from 'svelte/store'
+
+import type { Game } from '../types'
+import localStorageBackedStore from '../util/localStorageBackedStore'
 
 const game: Game = {
   id: '',
@@ -14,6 +16,6 @@ export function getRoomId (): string {
   return get(store).roomId
 }
 
-const store = writable<Game>(game)
+const store = localStorageBackedStore<Game>('game', game)
 
 export default store

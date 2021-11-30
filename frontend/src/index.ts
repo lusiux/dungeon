@@ -1,7 +1,7 @@
 /// <reference types="svelte" />
 
 import App from './components/App.svelte'
-import { updateHallOfFame } from './Facade'
+import { updateHallOfFame, initiate } from './Facade'
 
 const app = new App({
   target: document.body
@@ -9,6 +9,7 @@ const app = new App({
 
 export default app
 
+initiate()
 updateHallOfFame()
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.

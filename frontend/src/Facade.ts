@@ -5,6 +5,15 @@ import gameStore, { getGameId, getRoomId } from './stores/Game'
 import hofStore from './stores/HallOfFame'
 import appMetaStore from './stores/AppMeta'
 
+export async function initiate() {
+  const gameId = getGameId() // from local storage
+  if (gameId === '') {
+    return
+  }
+
+  await startUp()
+}
+
 async function updateRoom (): Promise<void> {
   const gameId = getGameId()
   const roomId = getRoomId()
