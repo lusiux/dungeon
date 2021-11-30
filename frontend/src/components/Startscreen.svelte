@@ -1,7 +1,8 @@
 <script lang="ts">
-	import HallOfFame from "./HallOfFame.svelte";
-
 	import { newGame, resumeGame } from "../Facade";
+
+	import HallOfFame from "./HallOfFame.svelte";
+	import AppMeta from "./AppMeta.svelte";
 
 	let newGameId: string;
 	let nickName: string
@@ -31,6 +32,8 @@
     <button disabled={newGameId === undefined || newGameId === ""} on:click={resumeExistingGame}>
         Resume game
     </button>
+
+	<AppMeta />
 </main>
 
 <HallOfFame />

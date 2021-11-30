@@ -14,5 +14,3 @@
 {:else}
 	<Game />
 {/if}
-
-<AppMeta />
