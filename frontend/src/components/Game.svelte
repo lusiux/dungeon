@@ -7,6 +7,7 @@
   import roomStore from "../stores/Room";
   import gameStore from "../stores/Game";
   import { leaveGame } from "../Facade";
+  import AppMeta from "./AppMeta.svelte";
 
   $: gameId = $gameStore.id
   $: shortGameId = gameId !== undefined ? gameId.substring(0, 4) : ''
@@ -50,6 +51,8 @@
 
     </div>
   {/if}
+
+  <AppMeta />
 </main>
 
 <style lang="scss">

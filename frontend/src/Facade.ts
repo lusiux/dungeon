@@ -87,9 +87,10 @@ export async function startUp (): Promise<void> {
 export async function leaveGame (): Promise<void> {
   resetRoomStore()
   resetInventoryStore()
-  await updateHallOfFame()
 
   gameStore.set({ id: '', roomId: '' })
+
+  await updateHallOfFame()
 }
 
 async function getHallOfFame (): Promise<HallOfFameEntry[]> {
