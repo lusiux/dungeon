@@ -22,7 +22,7 @@
   </table>
 </div>
 
-<style type="text/scss">
+<style lang="scss">
 	h3 {
     text-align: center;
 		margin-top: 3rem;

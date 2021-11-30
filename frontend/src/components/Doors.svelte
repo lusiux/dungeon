@@ -3,7 +3,7 @@
   import roomStore from "../stores/Room"
 </script>
 
-<style type="text/scss">
+<style lang="scss">
   @import '../style/vars.scss';
 
   .buttons div {
