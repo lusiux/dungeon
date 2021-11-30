@@ -1,4 +1,4 @@
-<style type="text/scss">
+<style lang="scss">
     @import '../style/vars';
 
     /* renders a little sqare in the lower left corner of the screen */

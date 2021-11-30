@@ -32,8 +32,9 @@ export default {
     }
   ],
   optimize: {
-    /* Example: Bundle your final build: */
-    // "bundle": true,
+    bundle: true,
+    treeshake: true,
+    minify: false
   },
   packageOptions: {
     /* ... */
