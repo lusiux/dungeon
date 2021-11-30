@@ -2,6 +2,7 @@
 	import HallOfFame from "./HallOfFame.svelte";
 
 	import { newGame, resumeGame } from "../Facade";
+	import { onEnter } from "../util/onEnter";
 
 	let newGameId: string;
 	let nickName: string
@@ -21,7 +22,7 @@
     <h1>Welcome!</h1>
 
 	<h3>Enter your name to start the game</h3>
-	<input type="text" bind:value={nickName} placeholder="Nickname" />
+	<input type="text" bind:value={nickName} on:keypress={onEnter(startNewGame)} placeholder="Nickname" />
 	<button disabled={nickName === undefined || nickName === ""} on:click={startNewGame}>Start new game</button>
 
     <h3>Resume existing game</h3>
