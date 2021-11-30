@@ -14,6 +14,10 @@
 	}
 
 	async function startNewGame() {
+		if (nickName === undefined || nickName === '') {
+			return
+		}
+
 		await newGame(nickName)
 		nickName = ''
 	}
