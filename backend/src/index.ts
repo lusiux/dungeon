@@ -26,7 +26,6 @@ let hof: HallOfFame
 try {
   hof = HallOfFame.fromFile()
 } catch (e) {
-  console.log(e)
   hof = new HallOfFame()
 }
 
