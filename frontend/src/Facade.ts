@@ -3,6 +3,7 @@ import roomStore, { reset as resetRoomStore } from './stores/Room'
 import inventoryStore, { reset as resetInventoryStore } from './stores/Inventory'
 import gameStore, { getGameId, getRoomId } from './stores/Game'
 import hofStore from './stores/HallOfFame'
+import appMetaStore from './stores/AppMeta'
 
 async function updateRoom (): Promise<void> {
   const gameId = getGameId()
@@ -106,31 +107,46 @@ export async function updateHallOfFame (): Promise<void> {
   hofStore.set(hofEntries)
 }
 
-async function _get<T> (url: string): Promise<T> {
-  const response = await fetch(url)
-
-  if (!response.ok) {
-    throw new Error(await response.text())
-  }
-
-  return await response.json()
+function loadingState(loading: boolean) {
+  appMetaStore.update(state => ({ ...state, loading }))
 }
 
-async function _post<T> (url: string, body?: any): Promise<T> {
-  const requestOptions = {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    }
+function errorState(errorMessage: string) {
+  appMetaStore.update(state => ({ ...state, error: errorMessage }))
+
+  setTimeout(() => {
+    appMetaStore.update(state => ({ ...state, error: undefined }))
+  }, 5000)
+}
+
+async function _get<T> (url: string): Promise<T> {
+  return __execute<T>(url)
+}
+
+async function _post<T> (url: string, data?: any): Promise<T> {
+  return __execute<T>(url, 'POST', data)
+}
+
+async function __execute<T>(url: string, method: 'GET' | 'PUT' | 'POST' = 'GET', bodyData?: any): Promise<T> {
+  loadingState(true)
+
+  const body = method === 'GET' || bodyData === undefined ? undefined : JSON.stringify(bodyData)
+  const headers = { 
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
   }
 
-  const response = await fetch(url, requestOptions)
-
+  const response = await fetch(url, { method, headers, body })
   if (!response.ok) {
-    throw new Error(await response.text())
+    const errorMessage = await response.text()
+
+    errorState(errorMessage)
+    loadingState(false)
+    throw new Error(errorMessage)
   }
 
-  return await response.json()
+  const jsonResult = await response.json()
+  loadingState(false)
+
+  return jsonResult
 }

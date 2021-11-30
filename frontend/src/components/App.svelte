@@ -1,8 +1,9 @@
 <script lang="ts">
 	import gameStore from "../stores/Game";
-	
+
 	import Startscreen from './Startscreen.svelte'
 	import Game from "./Game.svelte";
+	import AppMeta from "./AppMeta.svelte";
 
 	import '../style/reset.scss'
 	import '../style/general.scss'
@@ -13,3 +14,5 @@
 {:else}
 	<Game />
 {/if}
+
+<AppMeta />

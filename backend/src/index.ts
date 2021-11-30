@@ -71,3 +71,7 @@ app.get('/api/game/:gameId', asyncWrapper<GameState>(async (req: Request) => {
 app.get('/api/halloffame', asyncWrapper<HallOfFameEntry[]>(async () => {
   return await hof.getEntries()
 }))
+
+app.use((error, req: Request, res: Response, next: NextFunction) => {
+  res.status(500).end(error.message)
+})
