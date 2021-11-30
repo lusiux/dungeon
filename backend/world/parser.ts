@@ -2,7 +2,9 @@ import { readFile } from 'fs/promises'
 import path from 'path'
 import { v4 as uuid } from 'uuid'
 
-import { Room, Workbench } from '../src/types'
+import { Item, Room, Workbench } from '../src/types'
+
+import Papa from 'papaparse'
 
 interface Tile {
   id: number
@@ -40,6 +42,10 @@ interface Dungeon {
 }
 
 async function run (): Promise<void> {
+  const recipeFileContent = await readFile('recipes.csv', 'utf8')
+  const recipeList = (await Papa.parse(recipeFileContent))
+  parseRecipes(recipeList.data as string[][])
+
   const fileContent = await readFile(path.join(__dirname, '/dungeon.json'), 'utf8')
   const parsed = JSON.parse(fileContent) as Dungeon
 
@@ -154,39 +160,42 @@ function parseChests (objects: LayerObject[], rooms: Room[]): void {
 
 type Recipes = Record<string, Workbench>
 
-const recipes: Recipes = {
-  Bronze: {
-    inputs: [{
-      name: 'Copper',
-      quantity: 1
-    }, {
-      name: 'Tin',
-      quantity: 1
-    }],
-    output: {
-      name: 'Bronze',
-      quantity: 1
+const recipes: Recipes = {}
+
+function cellToItem (cell: string): Item {
+  const [quantity, ...nameArray] = cell.trim().split(' ')
+  const name = nameArray.join(' ')
+
+  return {
+    name,
+    quantity: parseFloat(quantity)
+  }
+}
+
+function parseRecipes (recipeList: string[][]): void {
+  for (const row of recipeList) {
+    const outputItemCell = row.shift()
+    if (outputItemCell === undefined || outputItemCell.length < 2) {
+      continue
     }
-  },
-  Toaster: {
-    inputs: [
-      {
-        name: 'Copper',
-        quantity: 2
-      },
-      {
-        name: 'Bronze',
-        quantity: 1
-      },
-      {
-        name: 'Tin',
-        quantity: 1
+    if (outputItemCell.trim() === '') {
+      continue
+    }
+
+    const outputItem = cellToItem(outputItemCell)
+    const recipe: Workbench = {
+      inputs: [],
+      output: outputItem
+    }
+
+    for (const inputItemCell of row) {
+      if (inputItemCell.trim() === '') {
+        continue
       }
-    ],
-    output: {
-      name: 'Toaster',
-      quantity: 1
+      recipe.inputs.push(cellToItem(inputItemCell))
     }
+
+    recipes[recipe.output.name] = recipe
   }
 }
 
