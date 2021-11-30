@@ -1,5 +1,7 @@
 <script lang="ts">
   import hofStore from "../stores/HallOfFame";
+
+  import formatTime from "../util/formatTime";
 </script>
 
 <div>
@@ -16,7 +18,7 @@
         <td>{entry.nickName}</td>
         <td class="right">{entry.plugs}</td>
         <td class="right">{entry.actions}</td>
-        <td class="right">{(entry.time/60).toFixed(1)}</td>
+        <td class="right time">{formatTime(entry.time)}</td>
       </tr>
     {/each}
   </table>
@@ -33,18 +35,17 @@
     margin: 0 auto;
     padding: 0 3rem;
     width: 60%;
-    // border: 1px solid green;
 
     table {
       margin: 0 auto;
     }
   }
 
-  th {
-
-  }
-
   td.right {
     text-align: right;
+  }
+
+  td.time {
+    padding-left: 1rem;
   }
 </style>
