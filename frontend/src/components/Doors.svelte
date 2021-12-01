@@ -36,13 +36,8 @@
 
   button {
     margin: 0.4rem;
-    width: 6rem;
+    width: 40%;
     min-width: 6rem;
-
-    @media (min-width: $breakpoint-medium) {
-        width: 7rem;
-        min-width: 7rem;
-    }
   }
 
   div {
