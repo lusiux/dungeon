@@ -30,7 +30,7 @@
 <style lang="scss">
   @import '../style/vars.scss';
 
-  .buttons div {
+  .control-container div {
     text-align: center;
   }
 
@@ -43,22 +43,29 @@
   div {
     white-space: nowrap;
   }
+
+  div.hint {
+    white-space: normal;
+    font-size: 0.6rem;
+    margin-top: 0.8rem;
+  }
 </style>
 
 <svelte:window on:keydown={handleKeydown}/>
 
 <div class="control-container">
   <h1>Doors</h1>
-  <div class="buttons">
-    <div>
-      <button disabled={$roomStore.doors.north === undefined} on:click={() => moveToRoom($roomStore.doors.north)}>North</button>
-    </div>
-    <div>
-      <button disabled={$roomStore.doors.west === undefined} on:click={() => moveToRoom($roomStore.doors.west)}>West</button>
-      <button disabled={$roomStore.doors.east === undefined} on:click={() => moveToRoom($roomStore.doors.east)}>East</button>
-    </div>
-    <div>
-      <button disabled={$roomStore.doors.south === undefined} on:click={() => moveToRoom($roomStore.doors.south)}>South</button>
-    </div>
+  <div>
+    <button disabled={$roomStore.doors.north === undefined} on:click={() => moveToRoom($roomStore.doors.north)}>North</button>
+  </div>
+  <div>
+    <button disabled={$roomStore.doors.west === undefined} on:click={() => moveToRoom($roomStore.doors.west)}>West</button>
+    <button disabled={$roomStore.doors.east === undefined} on:click={() => moveToRoom($roomStore.doors.east)}>East</button>
+  </div>
+  <div>
+    <button disabled={$roomStore.doors.south === undefined} on:click={() => moveToRoom($roomStore.doors.south)}>South</button>
+  </div>
+  <div class="hint">
+    Hint: You can also use the arrow keys on your keyboard
   </div>
 </div>
