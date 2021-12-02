@@ -29,6 +29,11 @@ export default {
           port: 3000
         })
       }
+    },
+    {
+      match: 'routes',
+      src: '.*',
+      dest: '/index.html'
     }
   ],
   optimize: {

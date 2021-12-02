@@ -30,6 +30,7 @@
         {/if}
       </div>
 
+      <button on:click={() => window.open('/hall-of-fame', '_blank').focus()}>Hall of Fame</button>
       <button on:click={leaveGame}>Leave game</button>
     </div>
 
@@ -81,6 +82,7 @@
 
   .game {
     display: flex;
+    flex-wrap: wrap;
 
     .game-id {
       flex-grow: 1;
@@ -88,8 +90,8 @@
 
     button {
       white-space: nowrap;
-      width: 13rem;
-      min-width: 13rem;
+      min-width: 12rem;
+      margin-left: 0.5rem;
     }
   }
 </style>

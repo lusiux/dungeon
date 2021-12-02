@@ -3,14 +3,21 @@
 
 	import Startscreen from './Startscreen.svelte'
 	import Game from "./Game.svelte";
-	import AppMeta from "./AppMeta.svelte";
+	import HallOfFame from "./HallOfFame.svelte";
+
+  import { Router, Route } from "svelte-routing";
 
 	import '../style/reset.scss'
 	import '../style/general.scss'
 </script>
 
-{#if $gameStore.id === ""}
-	<Startscreen />
-{:else}
-	<Game />
-{/if}
+<Router>
+	<Route path="/hall-of-fame" component="{HallOfFame}" />
+	<Route>
+		{#if $gameStore.id === ""}
+			<Startscreen />
+		{:else}
+			<Game />
+		{/if}
+	</Route>
+</Router>
