@@ -30,7 +30,6 @@
 
       <button on:click={() => navigate('/hall-of-fame')}>Hall of Fame</button>
       <button on:click={() => navigate('/')}>Back</button>
-      <!-- <button on:click={leaveGame}>Leave game</button> -->
     </div>
 
     <div class="details">
