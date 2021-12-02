@@ -28,6 +28,7 @@ body, h1, h2, h3, h4, h5, button, p, input {
 }
 
 h1, h2, h3, h4, h5 {
+    outline: none;
     margin-bottom: 1rem;
     color: $col-hl;    
 }
@@ -54,6 +55,14 @@ header {
 
 main {
     max-width: $breakpoint-big;
+}
+
+hr {
+    width: 70%;
+    border: 0;
+    height: 0.2rem;
+    background: $col-dark-grey;
+    margin: 1rem auto;
 }
 
 button {

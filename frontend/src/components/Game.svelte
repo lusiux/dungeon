@@ -1,12 +1,12 @@
 <script lang="ts">
+  import { navigate } from "svelte-navigator";
+
   import Inventory from "./Inventory.svelte";
   import Room from "./Room.svelte";
   import Doors from "./Doors.svelte";
-  import Debug from "./Debug.svelte";
 
   import roomStore from "../stores/Room";
   import gameStore from "../stores/Game";
-  import { leaveGame } from "../Facade";
   import AppMeta from "./AppMeta.svelte";
 
   $: gameId = $gameStore.id
@@ -14,8 +14,6 @@
 
   let revealCompleteId = false
 </script>
-
-<Debug />
 
 <main>
   {#if $gameStore.id !== ""}
@@ -30,8 +28,9 @@
         {/if}
       </div>
 
-      <button on:click={() => window.open('/hall-of-fame', '_blank').focus()}>Hall of Fame</button>
-      <button on:click={leaveGame}>Leave game</button>
+      <button on:click={() => navigate('/hall-of-fame')}>Hall of Fame</button>
+      <button on:click={() => navigate('/')}>Back</button>
+      <!-- <button on:click={leaveGame}>Leave game</button> -->
     </div>
 
     <div class="details">
@@ -43,13 +42,12 @@
 
       <div class="doors-inventory">
         <div class="box">
-            <Doors />
+          <Doors />
         </div>
         <div class="box">
           <Inventory />
         </div>
       </div>
-
     </div>
   {/if}
 
