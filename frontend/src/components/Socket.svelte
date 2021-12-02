@@ -8,7 +8,9 @@
   <p>Plug {$socketStore.item.quantity} {$socketStore.item.name} here</p>
 
   {#if $socketStore.pluggable}
-    <button on:click={plugItem}>Plug</button>
+    <div class="action-container">
+      <button on:click={plugItem}>Plug</button>
+    </div>
   {:else}
     <div class="sorry-man">No fitting item :(</div>
   {/if}

@@ -9,9 +9,11 @@
   {#if $roomStore.chest.item.quantity > 0}
     <p>Contains {$roomStore.chest.item.quantity} {$roomStore.chest.item.name}</p>
 
-    <button on:click={pickChest}>
-      Pick 1 item
-    </button>
+    <div class="action-container">
+      <button on:click={pickChest}>
+        Pick 1 item
+      </button>
+    </div>
   {:else}
     <div class="sorry-man">It's empty :(</div>
   {/if}

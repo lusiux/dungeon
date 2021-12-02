@@ -9,9 +9,11 @@
   <Recipe inputs={$workbenchStore.inputs} output={$workbenchStore.output} />
 
   {#if $workbenchStore.craftable}  
-    <button on:click={craftItem}>
-      Craft!
-    </button>
+    <div class="action-container">
+      <button on:click={craftItem}>
+        Craft!
+      </button>
+    </div>
   {:else}
     <div class="sorry-man">Ingredients missing! :(</div>
   {/if}
