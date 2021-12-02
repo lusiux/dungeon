@@ -54,7 +54,7 @@
 	<hr>
 
 	<button on:click={() => navigate('/hall-of-fame')}>
-        Hall Of Fame
+        Hall of Fame
     </button>
 
 	<AppMeta />
