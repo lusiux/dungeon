@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte/internal'
-  import { navigate } from "svelte-navigator";
+  import { navigate } from 'svelte-navigator'
 
-  import hofStore from "../stores/HallOfFame";
-  import { updateHallOfFame } from '../Facade';
+  import hofStore from '../stores/HallOfFame'
+  import { updateHallOfFame } from '../Facade'
 
-  import formatTime from "../util/formatTime";
+  import formatTime from '../util/formatTime'
 
   onMount(updateHallOfFame)
 </script>
@@ -34,11 +34,11 @@
 </main>
 
 <style lang="scss">
-	h3 {
+  h3 {
     text-align: center;
-		margin-top: 3rem;
-		margin-bottom: 1rem;
-	}
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
 
   main {
     margin: 0 auto;

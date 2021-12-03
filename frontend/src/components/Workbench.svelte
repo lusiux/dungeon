@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { craftItem } from "../Facade"
-  import workbenchStore from "../stores/Workbench"
-  import Recipe from "./Recipe.svelte"
+  import { craftItem } from '../Facade'
+  import workbenchStore from '../stores/Workbench'
+  import Recipe from './Recipe.svelte'
 </script>
 
 {#if $workbenchStore !== undefined}

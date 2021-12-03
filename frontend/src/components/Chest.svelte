@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { pickChest } from "../Facade"
-  import roomStore from "../stores/Room"
+  import { pickChest } from '../Facade'
+  import roomStore from '../stores/Room'
 </script>
 
 {#if $roomStore.chest !== undefined}
