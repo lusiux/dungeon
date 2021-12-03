@@ -1,6 +1,13 @@
 <script lang="ts">
   import { pickChest } from "../Facade"
   import roomStore from "../stores/Room"
+  
+	function handleKeydown(event: any) {
+    if (event.keyCode === 32) {
+      event.preventDefault()
+      pickChest()
+    }
+  }
 </script>
 
 {#if $roomStore.chest !== undefined}
@@ -14,6 +21,9 @@
         Pick 1 item
       </button>
     </div>
+
+
+    <svelte:window on:keydown={handleKeydown}/>
   {:else}
     <div class="sorry-man">It's empty :(</div>
   {/if}
