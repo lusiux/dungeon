@@ -1,30 +1,6 @@
 <script lang="ts">
   import { moveToRoom } from '../Facade'
   import roomStore from '../stores/Room'
-
-  function handleKeydown(event: any) {
-    if (event.keyCode < 37 || event.keyCode > 40) {
-      return
-    }
-
-    event.preventDefault()
-    
-    if (event.key === 'ArrowUp' && $roomStore.doors.north !== undefined) {
-      moveToRoom($roomStore.doors.north)
-    }
-
-    if (event.key === 'ArrowDown' && $roomStore.doors.south !== undefined) {
-      moveToRoom($roomStore.doors.south)
-    }
-
-    if (event.key === 'ArrowLeft' && $roomStore.doors.west !== undefined) {
-      moveToRoom($roomStore.doors.west)
-    }
-
-    if (event.key === 'ArrowRight' && $roomStore.doors.east !== undefined) {
-      moveToRoom($roomStore.doors.east)
-    }
-	}
 </script>
 
 <style lang="scss">
@@ -50,8 +26,6 @@
     margin-top: 0.8rem;
   }
 </style>
-
-<svelte:window on:keydown={handleKeydown}/>
 
 <div class="control-container">
   <h1>Doors</h1>
