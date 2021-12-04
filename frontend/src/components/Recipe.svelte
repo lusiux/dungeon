@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Item } from "src/types";
+  import type { Item } from 'src/types'
 
   export let inputs: Item[];
   export let output: Item;

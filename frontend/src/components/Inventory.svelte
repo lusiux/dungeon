@@ -1,5 +1,5 @@
 <script lang="ts">
-  import inventoryStore from "../stores/Inventory";
+  import inventoryStore from '../stores/Inventory'
 </script>
 
 <style>

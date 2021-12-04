@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { navigate } from "svelte-navigator";
+  import { navigate } from 'svelte-navigator'
 
-  import Inventory from "./Inventory.svelte";
-  import Room from "./Room.svelte";
-  import Doors from "./Doors.svelte";
+  import Inventory from './Inventory.svelte'
+  import Room from './Room.svelte'
+  import Doors from './Doors.svelte'
 
-  import roomStore from "../stores/Room";
-  import gameStore from "../stores/Game";
-  import AppMeta from "./AppMeta.svelte";
+  import roomStore from '../stores/Room'
+  import gameStore from '../stores/Game'
+  import AppMeta from './AppMeta.svelte'
 
   $: gameId = $gameStore.id
   $: shortGameId = gameId !== undefined ? gameId.substring(0, 4) : ''

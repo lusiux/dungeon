@@ -1,9 +1,9 @@
 <script>
-  import Chest from "./Chest.svelte";
-  import Socket from "./Socket.svelte";
-  import Workbench from "./Workbench.svelte";
-  import roomStore from "../stores/Room";
-  import gameStore from "../stores/Game";
+  import Chest from './Chest.svelte'
+  import Socket from './Socket.svelte'
+  import Workbench from './Workbench.svelte'
+  import roomStore from '../stores/Room'
+  import gameStore from '../stores/Game'
 </script>
 
 <h1>Room<span>(id: {$gameStore.roomId.substr(0, 4)}, {$roomStore.mnemonic})</span></h1>

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { moveToRoom } from "../Facade"
-  import roomStore from "../stores/Room"
+  import { moveToRoom } from '../Facade'
+  import roomStore from '../stores/Room'
 
-	function handleKeydown(event: any) {
+  function handleKeydown(event: any) {
     if (event.keyCode < 37 || event.keyCode > 40) {
       return
     }
@@ -23,7 +23,7 @@
 
     if (event.key === 'ArrowRight' && $roomStore.doors.east !== undefined) {
       moveToRoom($roomStore.doors.east)
-    }		
+    }
 	}
 </script>
 

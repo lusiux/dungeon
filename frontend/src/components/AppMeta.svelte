@@ -1,5 +1,5 @@
 <script lang="ts">
-	import appMeta from "../stores/AppMeta";
+  import appMeta from '../stores/AppMeta'
 </script>
 
 {#if $appMeta.loading}

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { plugItem } from "../Facade"
-  import socketStore from "../stores/Socket"
+  import { plugItem } from '../Facade'
+  import socketStore from '../stores/Socket'
 </script>
 
 {#if $socketStore !== undefined}
