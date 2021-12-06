@@ -15,29 +15,25 @@
         }
     }
 
-    const listOfKeys = [
-        'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
-        'KeyW', 'KeyS', 'KeyA', 'KeyD',
-        'Space'
-    ]
+    const keyboardBindings = {
+        'ArrowUp': () => moveToRoom($roomStore.doors.north),
+        'ArrowDown': () => moveToRoom($roomStore.doors.south),
+        'ArrowLeft': () => moveToRoom($roomStore.doors.west),
+        'ArrowRight': () => moveToRoom($roomStore.doors.east),
+        'KeyW': () => moveToRoom($roomStore.doors.north),
+        'KeyS': () => moveToRoom($roomStore.doors.south),
+        'KeyA': () => moveToRoom($roomStore.doors.west),
+        'KeyD': () => moveToRoom($roomStore.doors.east),
+        'Space': handleSpace
+    }
 
     function handleKeydown(event) {
-        if (listOfKeys.includes(event.code)) {
-            event.preventDefault()
-            event.stopPropagation()
-        }
+        if (keyboardBindings[event.code] === undefined) return
 
-        if (event.code === 'Space') {
-            return handleSpace()
-        } else if (event.code === 'ArrowUp' || event.code === 'KeyW') {
-            moveToRoom($roomStore.doors.north)
-        } else if (event.code === 'ArrowDown' || event.code === 'KeyS') {
-            moveToRoom($roomStore.doors.south)
-        } else if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
-            moveToRoom($roomStore.doors.west)
-        } else if (event.code === 'ArrowRight' || event.code === 'KeyD') {
-            moveToRoom($roomStore.doors.east)
-        }
+        event.preventDefault()
+        event.stopPropagation()
+
+        keyboardBindings[event.code]()
     }
 </script>
 

@@ -40,6 +40,6 @@
     <button disabled={$roomStore.doors.south === undefined} on:click={() => moveToRoom($roomStore.doors.south)}>South</button>
   </div>
   <div class="hint">
-    Hint: You can also use the arrow keys on your keyboard
+    Hint: You can also use the arrow keys or WASD to move around and the spacebar to interact with objects.
   </div>
 </div>
