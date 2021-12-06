@@ -1,5 +1,5 @@
 <script>
-    import socketStore from "../stores/Socket"    
+    import socketStore from "../stores/Socket"
     import workbenchStore from "../stores/Workbench"
     import roomStore from "../stores/Room"
 
@@ -24,6 +24,10 @@
         'KeyS': () => moveToRoom($roomStore.doors.south),
         'KeyA': () => moveToRoom($roomStore.doors.west),
         'KeyD': () => moveToRoom($roomStore.doors.east),
+        'KeyH': () => moveToRoom($roomStore.doors.west),
+        'KeyJ': () => moveToRoom($roomStore.doors.south),
+        'KeyK': () => moveToRoom($roomStore.doors.north),
+        'KeyL': () => moveToRoom($roomStore.doors.east),
         'Space': handleSpace
     }
 
