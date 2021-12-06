@@ -4,16 +4,19 @@
   import Inventory from './Inventory.svelte'
   import Room from './Room.svelte'
   import Doors from './Doors.svelte'
+  import AppMeta from './AppMeta.svelte'
+  import KeyboardInput from './KeyboardInput.svelte'
 
   import roomStore from '../stores/Room'
   import gameStore from '../stores/Game'
-  import AppMeta from './AppMeta.svelte'
 
   $: gameId = $gameStore.id
   $: shortGameId = gameId !== undefined ? gameId.substring(0, 4) : ''
 
   let revealCompleteId = false
 </script>
+
+<KeyboardInput />
 
 <main>
   {#if $gameStore.id !== ""}
