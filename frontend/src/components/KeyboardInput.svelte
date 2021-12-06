@@ -19,6 +19,12 @@
         if (event.code === 'Space') {
             return handleSpace()
         }
+
+        if (event.keyCode < 37 || event.keyCode > 40) {
+            return
+        }
+
+        event.preventDefault()
         
         if (event.key === 'ArrowUp' && $roomStore.doors.north !== undefined) {
             moveToRoom($roomStore.doors.north)
