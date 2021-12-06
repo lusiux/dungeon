@@ -15,30 +15,27 @@
         }
     }
 
+    const listOfKeys = [
+        'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+        'KeyW', 'KeyS', 'KeyA', 'KeyD',
+        'Space'
+    ]
+
     function handleKeydown(event) {
+        if (listOfKeys.includes(event.code)) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
         if (event.code === 'Space') {
             return handleSpace()
-        }
-
-        if (event.keyCode < 37 || event.keyCode > 40) {
-            return
-        }
-
-        event.preventDefault()
-        
-        if (event.key === 'ArrowUp' && $roomStore.doors.north !== undefined) {
+        } else if (event.code === 'ArrowUp' || event.code === 'KeyW') {
             moveToRoom($roomStore.doors.north)
-        }
-
-        if (event.key === 'ArrowDown' && $roomStore.doors.south !== undefined) {
+        } else if (event.code === 'ArrowDown' || event.code === 'KeyS') {
             moveToRoom($roomStore.doors.south)
-        }
-
-        if (event.key === 'ArrowLeft' && $roomStore.doors.west !== undefined) {
+        } else if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
             moveToRoom($roomStore.doors.west)
-        }
-
-        if (event.key === 'ArrowRight' && $roomStore.doors.east !== undefined) {
+        } else if (event.code === 'ArrowRight' || event.code === 'KeyD') {
             moveToRoom($roomStore.doors.east)
         }
     }
