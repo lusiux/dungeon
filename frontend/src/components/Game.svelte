@@ -9,6 +9,7 @@
 
   import roomStore from '../stores/Room'
   import gameStore from '../stores/Game'
+import Minimap from './Minimap.svelte';
 
   $: gameId = $gameStore.id
   $: shortGameId = gameId !== undefined ? gameId.substring(0, 4) : ''
@@ -43,6 +44,9 @@
       {/if}
 
       <div class="doors-inventory">
+        <div class="box">
+          <Minimap />
+        </div>
         <div class="box">
           <Doors />
         </div>
