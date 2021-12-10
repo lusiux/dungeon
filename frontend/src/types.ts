@@ -32,10 +32,6 @@ export interface Room {
   workbench?: Workbench
   chest?: Chest
   socket?: Socket
-  coords?: {
-    x: number
-    y: number
-  }
 }
 
 export interface Game {
