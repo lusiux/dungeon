@@ -9,7 +9,7 @@
 
   import roomStore from '../stores/Room'
   import gameStore from '../stores/Game'
-import Minimap from './Minimap.svelte';
+  import Minimap from './Minimap.svelte'
 
   $: gameId = $gameStore.id
   $: shortGameId = gameId !== undefined ? gameId.substring(0, 4) : ''
