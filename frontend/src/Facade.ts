@@ -4,7 +4,7 @@ import inventoryStore, { reset as resetInventoryStore } from './stores/Inventory
 import gameStore, { getGameId, getRoomId } from './stores/Game'
 import hofStore from './stores/HallOfFame'
 import appMetaStore from './stores/AppMeta'
-import mapStore, { addRoom, currentPositionStore, visitRoom } from './stores/Map'
+import { visitRoom } from './stores/Map'
 
 export async function initiate () {
   const gameId = getGameId() // from local storage
@@ -20,7 +20,7 @@ async function updateRoom (): Promise<void> {
   const roomId = getRoomId()
   const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
-  visitRoom(roomId, room.doors)
+  visitRoom(roomId, room.doors, room)
 }
 
 export async function moveToRoom (roomId: string | undefined): Promise<void> {
@@ -31,7 +31,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
   const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
   gameStore.set({ id: gameId, roomId })
-  visitRoom(roomId, room.doors)
+  visitRoom(roomId, room.doors, room)
 }
 
 export async function pickChest (): Promise<void> {
