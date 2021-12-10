@@ -4,8 +4,9 @@ import inventoryStore, { reset as resetInventoryStore } from './stores/Inventory
 import gameStore, { getGameId, getRoomId } from './stores/Game'
 import hofStore from './stores/HallOfFame'
 import appMetaStore from './stores/AppMeta'
+import { visitRoom } from './stores/Map'
 
-export async function initiate() {
+export async function initiate () {
   const gameId = getGameId() // from local storage
   if (gameId === '') {
     return
@@ -19,6 +20,7 @@ async function updateRoom (): Promise<void> {
   const roomId = getRoomId()
   const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
+  visitRoom(roomId, room)
 }
 
 export async function moveToRoom (roomId: string | undefined): Promise<void> {
@@ -29,6 +31,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
   const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
   gameStore.set({ id: gameId, roomId })
+  visitRoom(roomId, room)
 }
 
 export async function pickChest (): Promise<void> {
@@ -101,11 +104,11 @@ export async function updateHallOfFame (): Promise<void> {
   const hofEntries = await getHallOfFame()
 
   hofEntries.sort((a: HallOfFameEntry, b: HallOfFameEntry): number => {
-    if ( a.plugs !== b.plugs ) {
+    if (a.plugs !== b.plugs) {
       return b.plugs - a.plugs
     }
 
-    if ( a.time !== b.time ) {
+    if (a.time !== b.time) {
       return a.time - b.time
     }
 
@@ -117,11 +120,11 @@ export async function updateHallOfFame (): Promise<void> {
   hofStore.set(hofEntries)
 }
 
-function loadingState(loading: boolean) {
+function loadingState (loading: boolean): void {
   appMetaStore.update(state => ({ ...state, loading }))
 }
 
-function errorState(errorMessage: string) {
+function errorState (errorMessage: string): void {
   appMetaStore.update(state => ({ ...state, error: errorMessage }))
 
   setTimeout(() => {
@@ -130,20 +133,20 @@ function errorState(errorMessage: string) {
 }
 
 async function _get<T> (url: string): Promise<T> {
-  return __execute<T>(url)
+  return await __execute<T>(url)
 }
 
 async function _post<T> (url: string, data?: any): Promise<T> {
-  return __execute<T>(url, 'POST', data)
+  return await __execute<T>(url, 'POST', data)
 }
 
-async function __execute<T>(url: string, method: 'GET' | 'PUT' | 'POST' = 'GET', bodyData?: any): Promise<T> {
+async function __execute<T> (url: string, method: 'GET' | 'PUT' | 'POST' = 'GET', bodyData?: any): Promise<T> {
   loadingState(true)
 
   const body = method === 'GET' || bodyData === undefined ? undefined : JSON.stringify(bodyData)
-  const headers = { 
+  const headers = {
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    Accept: 'application/json'
   }
 
   const response = await fetch(url, { method, headers, body })
