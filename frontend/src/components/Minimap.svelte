@@ -14,7 +14,7 @@
 <h1>Minimap</h1>
 <svg width="320" height="320" viewBox={calculateViewBox($currentPositionStore)}>
   {#each $roomStore as room}
-    <rect x={room.x * roomSize} y="{room.y*roomSize}" width="{roomSize}" height="{roomSize}" rx="4" ry="4" fill="{room.type === 'unknown' ? "#474441" : "#747682"}" />
+    <rect x={room.x * roomSize} y="{room.y*roomSize}" width="{roomSize}" height="{roomSize}" rx="6" ry="6" fill="{room.type === 'unknown' ? "#474441" : "#747682"}" />
     {#if room.chest}
     <rect x={room.x * roomSize + 4} y="{room.y*roomSize + 4}" width="{roomSize/2-4}" height="{roomSize/2-4}" fill="#bd9067" />
     {/if}
