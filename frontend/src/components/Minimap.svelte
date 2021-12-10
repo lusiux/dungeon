@@ -1,5 +1,5 @@
 <script lang="ts">
-  import mapStore, { chestStore, currentPositionStore, plugStore, workbenchStore } from "../stores/Map"
+  import roomStore, { currentPositionStore } from "../stores/Map"
 
   const roomSize = 30
 
@@ -10,22 +10,21 @@
   }
 </script>
 
+
+<h1>Minimap</h1>
 <svg width="320" height="320" viewBox={calculateViewBox($currentPositionStore)}>
-  {#each $mapStore as room}
-    <rect x={room.x * roomSize} y="{room.y*roomSize}" width="{roomSize}" height="{roomSize}" rx="4" ry="4" fill="{room.type === 'unknown' ? "black" : "grey"}" />
+  {#each $roomStore as room}
+    <rect x={room.x * roomSize} y="{room.y*roomSize}" width="{roomSize}" height="{roomSize}" rx="4" ry="4" fill="{room.type === 'unknown' ? "#474441" : "#747682"}" />
+    {#if room.chest}
+    <rect x={room.x * roomSize + 4} y="{room.y*roomSize + 4}" width="{roomSize/2-4}" height="{roomSize/2-4}" fill="#bd9067" />
+    {/if}
+    {#if room.workbench}
+      <rect x={room.x * roomSize + roomSize/2} y="{room.y*roomSize + roomSize/2}" width="{roomSize/2-4}" height="{roomSize/2-4}" fill="#5b4c3b" />
+    {/if}
+    {#if room.socket}
+      <rect x={room.x * roomSize + roomSize/2} y="{room.y*roomSize+4}" width="{roomSize/2-4}" height="{roomSize/2-4}" fill="#d7d6df" />
+    {/if}
   {/each}
 
-  {#each $workbenchStore as workbench}
-    <rect x={workbench.x * roomSize + roomSize/2 - 1} y="{workbench.y*roomSize + roomSize/2 - 1}" width="{roomSize/2-2}" height="{roomSize/2-2}" fill="brown" />
-  {/each}
-
-  {#each $chestStore as chest}
-    <rect x={chest.x * roomSize + 1} y="{chest.y*roomSize + 1}" width="{roomSize/2-2}" height="{roomSize/2-2}" fill="orange" />
-  {/each}
-
-  {#each $plugStore as plug}
-    <rect x={plug.x * roomSize + roomSize/2 - 1} y="{plug.y*roomSize + 1}" width="{roomSize/2-2}" height="{roomSize/2-2}" fill="white" />
-  {/each}
-
-  <circle cx="{$currentPositionStore.x*roomSize + roomSize/2}" cy="{$currentPositionStore.y*roomSize + roomSize/2}" r="5" fill="black" />
+  <circle cx="{$currentPositionStore.x*roomSize + roomSize/2}" cy="{$currentPositionStore.y*roomSize + roomSize/2}" r="8" fill="black" />
 </svg>

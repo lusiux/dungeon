@@ -20,7 +20,7 @@ async function updateRoom (): Promise<void> {
   const roomId = getRoomId()
   const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
-  visitRoom(roomId, room.doors, room)
+  visitRoom(roomId, room)
 }
 
 export async function moveToRoom (roomId: string | undefined): Promise<void> {
@@ -31,7 +31,7 @@ export async function moveToRoom (roomId: string | undefined): Promise<void> {
   const room = await _get<Room>(`/api/game/${gameId}/room/${roomId}`)
   roomStore.set(room)
   gameStore.set({ id: gameId, roomId })
-  visitRoom(roomId, room.doors, room)
+  visitRoom(roomId, room)
 }
 
 export async function pickChest (): Promise<void> {
